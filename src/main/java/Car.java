@@ -21,6 +21,21 @@ public class Car {
         this.doors = doors;
     }
 
+    @Override
+    public String toString() {
+        return "Car{" +
+                "make='" + make + '\'' +
+                ", modelYear=" + modelYear +
+                ", model='" + model + '\'' +
+                ", kmDistance=" + kmDistance +
+                ", registrationnumber='" + registrationnumber + '\'' +
+                ", gearType='" + gearType + '\'' +
+                ", fuelType='" + fuelType + '\'' +
+                ", seats=" + seats +
+                ", doors=" + doors +
+                '}';
+    }
+
     public String getMake() {
         return make;
     }
