@@ -1,3 +1,5 @@
+package model;
+
 public class Car {
     private String make;
     private int modelYear;
@@ -23,7 +25,7 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Car{" +
+        return "model.Car{" +
                 "make='" + make + '\'' +
                 ", modelYear=" + modelYear +
                 ", model='" + model + '\'' +
