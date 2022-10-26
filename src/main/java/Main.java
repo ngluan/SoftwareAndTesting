@@ -1,5 +1,5 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.Car;
+import models.Car;
 
 import java.io.File;
 import java.io.IOException;
