@@ -10,7 +10,7 @@ public class Testing {
 
     @Test
     public void Test_true_or_false(){
-        boolean isFalse = false;
+        boolean isFalse = true;
         assertFalse(isFalse);
     }
 

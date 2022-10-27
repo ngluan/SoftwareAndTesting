@@ -3,6 +3,7 @@ package models;
 import java.util.Date;
 
 public class CarAd {
+<<<<<<< HEAD
     Car carObject;
     Date startDate;
     Date endDate;
@@ -20,6 +21,12 @@ public class CarAd {
         this.renterId = user.setId();
         return 1;
     }
+=======
+    private Car carObject;
+    private Date startDate;
+    private Date endDate;
+    private int renterId; //if 0 car is available for renting
+>>>>>>> 97e221e2c6630479256addcb31885b5c3f06417a
 
     public Car getCarObject() {
         return carObject;
