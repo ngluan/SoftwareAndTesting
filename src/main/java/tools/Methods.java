@@ -4,9 +4,7 @@ public class Methods {
     public static void registerCar(){
 
     }
-    public static void rentCar(){
 
-    }
     public static void createCarAd(){
 
     }

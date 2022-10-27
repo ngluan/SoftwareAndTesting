@@ -1,11 +1,11 @@
 package models;
 
-public class user {
+public class User {
     int id;
     String name;
     int age;
 
-    public user(int id, String name, int age) {
+    public User(int id, String name, int age) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -15,8 +15,9 @@ public class user {
         return id;
     }
 
-    public void setId(int id) {
+    public int setId() {
         this.id = id;
+        return 0;
     }
 
     public String getName() {
