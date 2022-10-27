@@ -1,0 +1,11 @@
+[ {
+  "make" : "Nissan",
+  "modelYear" : 2018,
+  "model" : "Leaf",
+  "kmDistance" : 200000,
+  "registrationnumber" : "RJ3292",
+  "gearType" : "Manual",
+  "fuelType" : "Gas",
+  "seats" : 5,
+  "doors" : 4
+} ]
