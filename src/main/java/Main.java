@@ -4,6 +4,8 @@ import models.Car;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,21 +15,20 @@ public class Main {
         biler.add(nissanLeaf);
 
         skrivTilJson("biler.json", biler);
-
     }
 
-        public static void skrivTilJson(String filnavn, ArrayList<Car> biler) {
-            try {
-                File file = new File(filnavn);
-                ObjectMapper objectMapper = new ObjectMapper();
+    public static void skrivTilJson(String filnavn, List<Car> biler) {
+        try {
+            File file = new File(filnavn);
+            ObjectMapper objectMapper = new ObjectMapper();
 
-                objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, biler);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, biler);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-
-
     }
+
+
+
+}
 

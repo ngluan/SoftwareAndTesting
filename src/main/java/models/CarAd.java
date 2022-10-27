@@ -4,10 +4,10 @@ import java.time.*;
 import java.util.Date;
 
 public class CarAd {
-    Car carObject;
-    Date startDate;
-    Date endDate;
-    int renterId; //if 0 car is available for renting
+    private Car carObject;
+    private Date startDate;
+    private Date endDate;
+    private int renterId; //if 0 car is available for renting
 
     public Car getCarObject() {
         return carObject;
