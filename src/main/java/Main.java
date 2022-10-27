@@ -9,23 +9,45 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Car> biler = new ArrayList<>();
+        ArrayList<Car> cars = new ArrayList<>();
         Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4);
         System.out.println(nissanLeaf);
-        biler.add(nissanLeaf);
+        cars.add(nissanLeaf);
 
-        skrivTilJson("biler.json", biler);
+        File JSONFil = new File("cars.json");
+
+        //writeToJSON("cars.json", cars);
+
+        ArrayList<Car> carReadFromFile = lesFraJSONFil(JSONFil);
+
+        for (Car car : carReadFromFile) {
+            System.out.println(car);
+        }
     }
 
-    public static void skrivTilJson(String filnavn, List<Car> biler) {
+    public static void writeToJSON(String filename, List<Car> cars) {
         try {
-            File file = new File(filnavn);
+            File file = new File(filename);
             ObjectMapper objectMapper = new ObjectMapper();
 
-            objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, biler);
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, cars);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static ArrayList<Car> lesFraJSONFil(File fil) {
+        ArrayList<Car> returnList = new ArrayList<>();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            Car[] bilArray = objectMapper.readValue(fil, Car[].class);
+            returnList.addAll(Arrays.asList(bilArray));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return returnList;
     }
 
 

@@ -11,6 +11,10 @@ public class Car {
     private int seats;
     private int doors;
 
+    public Car(){
+
+    }
+
     public Car(String make, int modelYear, String model, int kmDistance, String registrationnumber, String gearType, String fuelType, int seats, int doors) {
         this.make = make;
         this.modelYear = modelYear;
