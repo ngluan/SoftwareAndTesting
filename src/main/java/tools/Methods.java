@@ -2,10 +2,12 @@ package tools;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Car;
+import models.CarAd;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Methods {
@@ -13,8 +15,8 @@ public class Methods {
         writeToJson("cars.json", cars);
     }
 
-    public static void createCarAd(){
-
+    public static void createCarAd(Car userCar, Date startDate, Date endDate){
+        CarAd carad = new CarAd(userCar, startDate, endDate, 0);
     }
     public static void showCarAds(){
 
