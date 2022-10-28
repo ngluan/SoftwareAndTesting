@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Date;
+
 public class Car {
     private String make;
     private int modelYear;
@@ -10,7 +12,6 @@ public class Car {
     private String fuelType;
     private int seats;
     private int doors;
-
     public Car(){
 
     }
@@ -25,6 +26,11 @@ public class Car {
         this.fuelType = fuelType;
         this.seats = seats;
         this.doors = doors;
+    }
+
+    public CarAd createCarAd(Car userCar, Date startDate, Date endDate) {
+        CarAd carad = new CarAd(userCar, startDate, endDate, 0);
+        return carad;
     }
 
     @Override
