@@ -1,4 +1,93 @@
 package forms;
 
-public class MainGUI {
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class MainGUI extends JFrame{
+    private JPanel mainPanel;
+    private JPanel mainCardLayout;
+    private JPanel loginPanel;
+    private JPanel adsPanel;
+    private JPanel registerPanel;
+
+    private JButton loginButtonUser1;
+    private JButton loginButtonUser2;
+    private JButton loginButtonAdmin;
+    private JButton loginButtons[] = {loginButtonUser1, loginButtonUser2, loginButtonAdmin};
+
+    private JPanel carsPanel;
+    private JButton navButAds;
+    private JButton navButCars;
+    private JButton navButBook;
+    private JPanel navPanel;
+    private JPanel pagesPanel;
+    private JPanel pagesCardLayout;
+    private JPanel bookingsPanel;
+    private JButton navButReg;
+
+    public MainGUI(String title){
+        super(title);
+
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setContentPane(mainPanel);
+        this.pack();
+
+        // Add events to buttons
+        for (int i=0; i<loginButtons.length; i++) {
+            loginButtons[i].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e)
+                {
+                    mainCardLayout.removeAll();
+                    mainCardLayout.add(pagesPanel);
+                    mainCardLayout.repaint();
+                    mainCardLayout.revalidate();
+
+                    //call login function with i+1 as argument
+                }
+            });
+        }
+
+        navButAds.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                pagesCardLayout.removeAll();
+                pagesCardLayout.add(adsPanel);
+                pagesCardLayout.repaint();
+                pagesCardLayout.revalidate();
+            }
+        });
+        navButCars.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                pagesCardLayout.removeAll();
+                pagesCardLayout.add(carsPanel);
+                pagesCardLayout.repaint();
+                pagesCardLayout.revalidate();
+            }
+        });
+        navButBook.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                pagesCardLayout.removeAll();
+                pagesCardLayout.add(bookingsPanel);
+                pagesCardLayout.repaint();
+                pagesCardLayout.revalidate();
+            }
+        });
+        navButReg.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                pagesCardLayout.removeAll();
+                pagesCardLayout.add(registerPanel);
+                pagesCardLayout.repaint();
+                pagesCardLayout.revalidate();
+            }
+        });
+    }
 }
