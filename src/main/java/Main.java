@@ -1,5 +1,6 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Car;
+import models.User;
 import tools.Methods;
 
 import java.io.File;
@@ -11,14 +12,15 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         ArrayList<Car> cars = new ArrayList<>();
-        Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4);
+        User user = new User(12, "Arne", 52);
+        Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user);
         System.out.println(nissanLeaf);
         cars.add(nissanLeaf);
         cars.add(nissanLeaf);
 
         File JSONFil = new File("cars.json");
 
-        //writeToJSON("cars.json", cars);
+        writeToJSON("cars.json", cars);
 
         ArrayList<Car> carReadFromFile = lesFraJSONFil(JSONFil);
 
