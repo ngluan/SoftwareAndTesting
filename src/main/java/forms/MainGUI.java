@@ -25,6 +25,11 @@ public class MainGUI extends JFrame{
     private JPanel pagesCardLayout;
     private JPanel bookingsPanel;
     private JButton navButReg;
+    private JButton addCarBut;
+    private JTextField makeField;
+    private JTextField yearField;
+    private JTextField modelField;
+    private JTextField regnumField;
 
     public MainGUI(String title){
         super(title);
@@ -33,61 +38,73 @@ public class MainGUI extends JFrame{
         this.setContentPane(mainPanel);
         this.pack();
 
-        // Add events to buttons
+        // ADD EVENTS TO BUTTONS
+
+        //login buttons
         for (int i=0; i<loginButtons.length; i++) {
             loginButtons[i].addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent e)
-                {
-                    mainCardLayout.removeAll();
-                    mainCardLayout.add(pagesPanel);
-                    mainCardLayout.repaint();
-                    mainCardLayout.revalidate();
+                public void actionPerformed(ActionEvent e) {
+                    ChangeCard(mainCardLayout, pagesPanel);
 
                     //call login function with i+1 as argument
                 }
             });
         }
 
+        //nav buttons
         navButAds.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                pagesCardLayout.removeAll();
-                pagesCardLayout.add(adsPanel);
-                pagesCardLayout.repaint();
-                pagesCardLayout.revalidate();
+            public void actionPerformed(ActionEvent e) {
+                ChangeCard(pagesCardLayout, adsPanel);
             }
         });
         navButCars.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                pagesCardLayout.removeAll();
-                pagesCardLayout.add(carsPanel);
-                pagesCardLayout.repaint();
-                pagesCardLayout.revalidate();
+            public void actionPerformed(ActionEvent e) {
+                ChangeCard(pagesCardLayout, carsPanel);
             }
         });
         navButBook.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                pagesCardLayout.removeAll();
-                pagesCardLayout.add(bookingsPanel);
-                pagesCardLayout.repaint();
-                pagesCardLayout.revalidate();
+            public void actionPerformed(ActionEvent e) {
+                ChangeCard(pagesCardLayout, bookingsPanel);
             }
         });
         navButReg.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                pagesCardLayout.removeAll();
-                pagesCardLayout.add(registerPanel);
-                pagesCardLayout.repaint();
-                pagesCardLayout.revalidate();
+            public void actionPerformed(ActionEvent e) {
+                ChangeCard(pagesCardLayout, registerPanel);
             }
         });
+
+        //other buttons
+        addCarBut.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String make = makeField.getText();
+                    int year = Integer.parseInt(yearField.getText());
+                    String model = modelField.getText();
+                    String regnum = regnumField.getText();
+
+                    //Car car = new Car(make, year, model, 200000, regnum, "Manual", "Gas", 5, 4);
+                    //methods.RegisterCar(car/paramentere)
+
+                    ChangeCard(pagesCardLayout, carsPanel);
+                }
+                catch (NumberFormatException numberFormatException) {
+                    System.out.println("Model year must be an int");
+                }
+            }
+        });
+    }
+
+    void ChangeCard(JPanel cardLayoutPanel, JPanel pagePanel)
+    {
+        cardLayoutPanel.removeAll();
+        cardLayoutPanel.add(pagePanel);
+        cardLayoutPanel.repaint();
+        cardLayoutPanel.revalidate();
     }
 }
