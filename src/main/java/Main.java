@@ -1,4 +1,7 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
+import forms.MainGUI;
+
+import javax.swing.*;
 import models.Car;
 import models.User;
 import tools.Methods;
@@ -11,6 +14,10 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+
+        MainGUI mainGUI = new MainGUI("CarX");
+        mainGUI.setVisible(true);
+        mainGUI.setExtendedState(mainGUI.MAXIMIZED_BOTH);
         ArrayList<Car> cars = new ArrayList<>();
         User user = new User(12, "Arne", 52);
         Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user);
