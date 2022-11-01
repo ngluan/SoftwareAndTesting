@@ -15,9 +15,14 @@ public class CarAd {
         this.renterId = renterId;
     }
 
-    public int rentCar(User user){
-        this.renterId = user.setId();
-        return 1;
+    public boolean rentCar(User user){
+        if (renterId == 0) {
+            this.renterId = user.getId();
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public Car getCarObject() {

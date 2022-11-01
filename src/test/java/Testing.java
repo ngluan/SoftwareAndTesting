@@ -3,6 +3,8 @@ import models.CarAd;
 import models.User;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -15,28 +17,42 @@ public class Testing {
     }
 
     @Test
-    public void Testing_If_RentCar_function_returns_1_When_car_is_rented() {
+    public void Car_can_not_get_rented_if_unavaible() {
         User user = new User(12, "Arne", 52);
+        User user2 = new User(9, "Ronny", 25);
         Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user);
         CarAd carAd = new CarAd(nissanLeaf, null, null, 0);
-        assertEquals(1, carAd.rentCar(user));
+        carAd.rentCar(user);
+        assertEquals(false, carAd.rentCar(user2));
     }
-
 
     @Test
-    public void Testing_If_car_is_avalaible_when_not_rented() {
+    public void Car_can_get_rented_if_avalaible() {
+        User user = new User(12, "Arne", 52);
+        User user2 = new User(9, "Ronny", 25);
+        Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user);
+        CarAd carAd = new CarAd(nissanLeaf, null, null, 0);
+        assertEquals(true, carAd.rentCar(user2));
+    }
+
+    @Test
+    public void if_car_is_available() {
         User user = new User(12, "Arne", 52);
         Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user);
         CarAd carAd = new CarAd(nissanLeaf, null, null, 0);
-        assertEquals(0, carAd.getRenterId());
+        carAd.rentCar(user);
+        assertEquals(12, carAd.getRenterId());
     }
-/*
+
+
     @Test
     public void Testing_if_Car_object_returns_in_json_format() {
         ArrayList<Car> cars = new ArrayList<>();
-        Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, User);
+        User user = new User(12, "Arne", 52);
+        Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user);
         cars.add(nissanLeaf);
-        assertEquals("model.Car{make='Nissan', modelYear=2018, model='Leaf', kmDistance=200000, registrationnumber='RJ3292', gearType='Manual', fuelType='Gas', seats=5, doors=4}", System.out.println(nissanLeaf));
+        assertEquals("model.Car{make='Nissan', modelYear=2018, model='Leaf', kmDistance=200000, registrationnumber='RJ3292', gearType='Manual', fuelType='Gas', seats=5, doors=4}", nissanLeaf.toString());
     }
-*/
+
+
 }
