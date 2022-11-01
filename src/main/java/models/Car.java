@@ -14,7 +14,7 @@ public class Car {
     private int doors;
     private User user;
 
-    public Car(String nissan, int i, String leaf, int i1, String rj3292, String manual, String gas, int i2, int i3){
+    public Car(){
 
     }
 
@@ -48,6 +48,7 @@ public class Car {
                 ", fuelType='" + fuelType + '\'' +
                 ", seats=" + seats +
                 ", doors=" + doors +
+                //", user=" + user.getId() +
                 '}';
     }
 

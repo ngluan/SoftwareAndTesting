@@ -24,7 +24,7 @@ public class Main {
 
         ArrayList<Car> carReadFromFile = lesFraJSONFil(JSONFil);
 
-        Methods.registerCar(cars);
+        //Methods.registerCar(cars);
         for (Car car : carReadFromFile) {
             System.out.println(car);
         }
