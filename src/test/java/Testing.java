@@ -17,20 +17,21 @@ public class Testing {
     @Test
     public void Testing_If_RentCar_function_returns_1_When_car_is_rented() {
         User user = new User(12, "Arne", 52);
-        Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4);
+        Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user);
         CarAd carAd = new CarAd(nissanLeaf, null, null, 0);
         assertEquals(1, carAd.rentCar(user));
     }
-/*
+
+
+
     @Test
-    public void Testing_If_car_is_avalaible_for_when_not_rented(){
+    public void Testing_If_car_is_avalaible_when_not_rented(){
         User user = new User(12, "Arne", 52);
-        Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4);
-        nissanLeaf.createCarAd(nissanLeaf,null,null);
-        assertEquals(0, nissanLeaf.g);
+        Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user);
+        CarAd carAd = new CarAd(nissanLeaf, null, null, 0);
+        assertEquals(0, carAd.getRenterId());
     }
 
-*/
     /*
     @Test
     public void Testing_if_Car_object_returns_in_json_format() {

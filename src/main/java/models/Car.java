@@ -12,11 +12,13 @@ public class Car {
     private String fuelType;
     private int seats;
     private int doors;
-    public Car(){
+    private User user;
+
+    public Car(String nissan, int i, String leaf, int i1, String rj3292, String manual, String gas, int i2, int i3){
 
     }
 
-    public Car(String make, int modelYear, String model, int kmDistance, String registrationnumber, String gearType, String fuelType, int seats, int doors) {
+    public Car(String make, int modelYear, String model, int kmDistance, String registrationnumber, String gearType, String fuelType, int seats, int doors, User user) {
         this.make = make;
         this.modelYear = modelYear;
         this.model = model;
@@ -26,6 +28,7 @@ public class Car {
         this.fuelType = fuelType;
         this.seats = seats;
         this.doors = doors;
+        this.user = user;
     }
 
     public CarAd createCarAd(Car userCar, Date startDate, Date endDate) {

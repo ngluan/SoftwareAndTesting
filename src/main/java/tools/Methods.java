@@ -19,10 +19,14 @@ public class Methods {
         CarAd carad = new CarAd(userCar, startDate, endDate, 0);
     }
     public static void showCarAds(){
-
+        // Method for showing all car ads in UI
     }
     public static void login(int userid) {
 
+    }
+
+    public static void deleteCarAd(){
+        // method for deleting a car ad
     }
 
     public static void writeToJson(String filename, List<Car> cars) {
