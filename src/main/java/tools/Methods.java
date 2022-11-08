@@ -7,6 +7,7 @@ import models.CarAd;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class Methods {
         // method for deleting a car ad
     }
 
-    public static void writeToJson(String filename, List<Car> cars) {
+    public static void writeCarToJSON(String filename, List<Car> cars) {
         try {
             File file = new File(filename);
             ObjectMapper objectMapper = new ObjectMapper();
@@ -47,4 +48,17 @@ public class Methods {
         }
     }
 
+    public static ArrayList<Car> readCarsfromJSON(File fil) {
+        ArrayList<Car> returnList = new ArrayList<>();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            Car[] bilArray = objectMapper.readValue(fil, Car[].class);
+            returnList.addAll(Arrays.asList(bilArray));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return returnList;
+    }
 }

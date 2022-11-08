@@ -1,14 +1,10 @@
-import com.fasterxml.jackson.databind.ObjectMapper;
 import forms.MainGUI;
 
 import models.Car;
-import models.User;
+import tools.Methods;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -25,41 +21,15 @@ public class Main {
 
         File JSONFil = new File("cars.json");
 
-        writeToJSON("cars.json", cars);
+        Methods.writeCarToJSON("cars.json", cars);
 
-        ArrayList<Car> carReadFromFile = lesFraJSONFil(JSONFil);
+        ArrayList<Car> carReadFromFile = Methods.readCarsfromJSON(JSONFil);
 
         //Methods.registerCar(cars);
         for (Car car : carReadFromFile) {
             System.out.println(car);
         }
     }
-
-    public static void writeToJSON(String filename, List<Car> cars) {
-        try {
-            File file = new File(filename);
-            ObjectMapper objectMapper = new ObjectMapper();
-
-            objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, cars);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static ArrayList<Car> lesFraJSONFil(File fil) {
-        ArrayList<Car> returnList = new ArrayList<>();
-
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        try {
-            Car[] bilArray = objectMapper.readValue(fil, Car[].class);
-            returnList.addAll(Arrays.asList(bilArray));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return returnList;
-    }
-
 
 
 }
