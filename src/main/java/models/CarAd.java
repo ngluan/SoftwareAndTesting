@@ -15,9 +15,9 @@ public class CarAd {
         this.renterId = renterId;
     }
 
-    public boolean rentCar(User user){
+    public boolean rentCar(int user){
         if (renterId == 0) {
-            this.renterId = user.getId();
+            this.renterId = user;
             return true;
         }
         else {

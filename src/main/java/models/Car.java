@@ -12,13 +12,13 @@ public class Car {
     private String fuelType;
     private int seats;
     private int doors;
-    private User user;
+    private int user;
 
     public Car(){
 
     }
 
-    public Car(String make, int modelYear, String model, int kmDistance, String registrationnumber, String gearType, String fuelType, int seats, int doors, User user) {
+    public Car(String make, int modelYear, String model, int kmDistance, String registrationnumber, String gearType, String fuelType, int seats, int doors, int user) {
         this.make = make;
         this.modelYear = modelYear;
         this.model = model;

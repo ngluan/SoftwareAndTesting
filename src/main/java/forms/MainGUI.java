@@ -89,7 +89,7 @@ public class MainGUI extends JFrame{
                     String regnum = regnumField.getText();
 
                     //Car car = new Car(make, year, model, 200000, regnum, "Manual", "Gas", 5, 4);
-                    //methods.RegisterCar(car/paramentere)
+                    //methods.RegisterCar(car/parametere)
 
                     ChangeCard(pagesCardLayout, carsPanel);
                 }

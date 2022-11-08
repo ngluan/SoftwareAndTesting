@@ -11,8 +11,15 @@ import java.util.Date;
 import java.util.List;
 
 public class Methods {
-    public static void registerCar(ArrayList<Car> cars){
-        writeToJson("cars.json", cars);
+    public static void registerCar(String make, int year, String model, String regnum){
+        //create car object from parameters
+        //read list of cars from JSON, add car to the list, write list to JSON
+        //alternatively just add the element to the end of the JSON file
+        Car newCar = new Car(make, year, model, 200000, regnum, "Manual", "Gas", 5, 4, 1);
+
+        //List<Car> cars = readCarsFromJson();
+        //cars.add(newCar);
+        //writeCarsToJson("cars.json", cars);
     }
 
     public static void createCarAd(Car userCar, Date startDate, Date endDate){
