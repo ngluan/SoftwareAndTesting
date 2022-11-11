@@ -14,52 +14,73 @@ import java.util.List;
 public class Methods {
     public static int userId;
 
-    public static void registerCar(String make, int year, String model, String regnum){
-        //create car object from parameters
-        //read list of cars from JSON, add car to the list, write list to JSON
-        //alternatively just add the element to the end of the JSON file
-        Car newCar = new Car(make, year, model, 200000, regnum, "Manual", "Gas", 5, 4, userId);
+    private static final File carsJSON = new File("cars.json");
+    private static final File adsJSON = new File("ads.json");
 
-        //List<Car> cars = readCarsFromJson();
-        //cars.add(newCar);
-        //writeCarsToJson("cars.json", cars);
+    public static void login(int id) {
+        userId = id;
+    }
+
+    public static void registerCar(String make, int year, String model, String regnum){
+        Car newCar = new Car(make, year, model, 200000, regnum, "Manual", "Gas", 5, 4, userId);
+        ArrayList<Car> cars = readCarsFromJSON(carsJSON);
+        cars.add(newCar);
+        writeCarsToJSON(carsJSON, cars);
+    }
+    public static void deleteCar()
+    {
+
     }
 
     public static void createCarAd(Car userCar, Date startDate, Date endDate){
-        CarAd carad = new CarAd(userCar, startDate, endDate, 0);
+        CarAd newAd = new CarAd(userCar, startDate, endDate, 0);
+        ArrayList<CarAd> carAds = readAdsFromJSON(adsJSON);
+        carAds.add(newAd);
+        writeAdsToJSON(adsJSON, carAds);
     }
     public static void showCarAds(){
         // Method for showing all car ads in UI
         // List<Car> cars = readCarsFromJson()
         // Might move this to only MainGUI if this only changes GUI
     }
-    public static void login(int userid) {
-
-    }
-
     public static void deleteCarAd(){
         // method for deleting a car ad
     }
 
-    public static void writeCarToJSON(String filename, List<Car> cars) {
+    public static void writeCarsToJSON(File file, List<Car> cars) {
         try {
-            File file = new File(filename);
             ObjectMapper objectMapper = new ObjectMapper();
-
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, cars);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    public static ArrayList<Car> readCarsfromJSON(File fil) {
+    public static ArrayList<Car> readCarsFromJSON(File fil) {
         ArrayList<Car> returnList = new ArrayList<>();
-
         ObjectMapper objectMapper = new ObjectMapper();
-
         try {
             Car[] bilArray = objectMapper.readValue(fil, Car[].class);
             returnList.addAll(Arrays.asList(bilArray));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return returnList;
+    }
+
+    public static void writeAdsToJSON(File file, List<CarAd> ads) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, ads);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static ArrayList<CarAd> readAdsFromJSON(File fil) {
+        ArrayList<CarAd> returnList = new ArrayList<>();
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            CarAd[] adArray = objectMapper.readValue(fil, CarAd[].class);
+            returnList.addAll(Arrays.asList(adArray));
         } catch (IOException e) {
             e.printStackTrace();
         }

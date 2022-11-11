@@ -18,7 +18,6 @@ public class MainGUI extends JFrame{
     private JButton loginButtonUser1;
     private JButton loginButtonUser2;
     private JButton loginButtonAdmin;
-    private JButton loginButtons[] = {loginButtonUser1, loginButtonUser2, loginButtonAdmin};
 
     private JPanel carsPanel;
     private JButton navButAds;
@@ -45,17 +44,30 @@ public class MainGUI extends JFrame{
         // ADD EVENTS TO BUTTONS
 
         //login buttons
-        for (int i=0; i<loginButtons.length; i++) {
-            loginButtons[i].addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    changeCard(mainCardLayout, pagesPanel);
-                    showCarAds();
-
-                    //call login function with i+1 as argument
-                }
-            });
-        }
+        loginButtonUser1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Methods.login(1);
+                changeCard(mainCardLayout, pagesPanel);
+                showCarAds();
+            }
+        });
+        loginButtonUser2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Methods.login(2);
+                changeCard(mainCardLayout, pagesPanel);
+                showCarAds();
+            }
+        });
+        loginButtonAdmin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Methods.login(3);
+                changeCard(mainCardLayout, pagesPanel);
+                showCarAds();
+            }
+        });
 
         //nav buttons
         navButAds.addActionListener(new ActionListener() {
@@ -76,6 +88,7 @@ public class MainGUI extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 changeCard(pagesCardLayout, bookingsPanel);
+                showBookings();
             }
         });
         navButReg.addActionListener(new ActionListener() {
@@ -95,7 +108,7 @@ public class MainGUI extends JFrame{
                     String model = modelField.getText();
                     String regnum = regnumField.getText();
 
-                    //Methods.registerCar(make, year, model, regnum);
+                    Methods.registerCar(make, year, model, regnum);
 
                     changeCard(pagesCardLayout, carsPanel);
                 }

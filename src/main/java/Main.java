@@ -12,7 +12,8 @@ public class Main {
         MainGUI mainGUI = new MainGUI("CarX");
         mainGUI.setVisible(true);
         mainGUI.setExtendedState(mainGUI.MAXIMIZED_BOTH);
-        ArrayList<Car> cars = new ArrayList<>();
+
+        /*ArrayList<Car> cars = new ArrayList<>();
         int user = 1;
         Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, 1);
         System.out.println(nissanLeaf);
@@ -20,14 +21,14 @@ public class Main {
 
         File JSONFil = new File("cars.json");
 
-        Methods.writeCarToJSON("cars.json", cars);
+        Methods.writeCarsToJSON("cars.json", cars);
 
-        ArrayList<Car> carReadFromFile = Methods.readCarsfromJSON(JSONFil);
+        ArrayList<Car> carReadFromFile = Methods.readCarsFromJSON(JSONFil);
 
         //Methods.registerCar(cars);
         for (Car car : carReadFromFile) {
             System.out.println(car);
-        }
+        }*/
     }
 
 
