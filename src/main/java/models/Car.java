@@ -31,8 +31,8 @@ public class Car {
         this.user = user;
     }
 
-    public CarAd createCarAd(Car userCar, Date startDate, Date endDate) {
-        CarAd carad = new CarAd(userCar, startDate, endDate, 0);
+    public CarAd createCarAd(String carRegnum, Date startDate, Date endDate) {
+        CarAd carad = new CarAd(carRegnum, startDate, endDate, 0);
         return carad;
     }
 

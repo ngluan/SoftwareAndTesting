@@ -27,13 +27,15 @@ public class Methods {
         cars.add(newCar);
         writeCarsToJSON(carsJSON, cars);
     }
-    public static void deleteCar()
+    public static void deleteCar(String regnum)
     {
-
+        ArrayList<Car> cars = readCarsFromJSON(carsJSON);
+        //find car with regnum and remove it from list
+        writeCarsToJSON(carsJSON, cars);
     }
 
-    public static void createCarAd(Car userCar, Date startDate, Date endDate){
-        CarAd newAd = new CarAd(userCar, startDate, endDate, 0);
+    public static void createCarAd(String carRegnum, Date startDate, Date endDate){
+        CarAd newAd = new CarAd(carRegnum, startDate, endDate, 0);
         ArrayList<CarAd> carAds = readAdsFromJSON(adsJSON);
         carAds.add(newAd);
         writeAdsToJSON(adsJSON, carAds);
@@ -44,9 +46,12 @@ public class Methods {
         // Might move this to only MainGUI if this only changes GUI
     }
     public static void deleteCarAd(){
-        // method for deleting a car ad
+        ArrayList<CarAd> carAds = readAdsFromJSON(adsJSON);
+        //find ad with adId and remove it from list
+        writeAdsToJSON(adsJSON, carAds);
     }
 
+    // File Handling
     public static void writeCarsToJSON(File file, List<Car> cars) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();

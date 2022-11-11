@@ -21,7 +21,7 @@ public class Testing {
         User user = new User(12, "Arne", 52);
         User user2 = new User(9, "Ronny", 25);
         Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
-        CarAd carAd = new CarAd(nissanLeaf, null, null, 0);
+        CarAd carAd = new CarAd(nissanLeaf.getRegistrationnumber(), null, null, 0);
         carAd.rentCar(user.getId());
         assertEquals(false, carAd.rentCar(user2.getId()));
     }
@@ -31,7 +31,7 @@ public class Testing {
         User user = new User(12, "Arne", 52);
         User user2 = new User(9, "Ronny", 25);
         Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
-        CarAd carAd = new CarAd(nissanLeaf, null, null, 0);
+        CarAd carAd = new CarAd(nissanLeaf.getRegistrationnumber(), null, null, 0);
         assertEquals(true, carAd.rentCar(user2.getId()));
     }
 
@@ -39,7 +39,7 @@ public class Testing {
     public void if_car_is_available() {
         User user = new User(12, "Arne", 52);
         Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
-        CarAd carAd = new CarAd(nissanLeaf, null, null, 0);
+        CarAd carAd = new CarAd(nissanLeaf.getRegistrationnumber(), null, null, 0);
         carAd.rentCar(user.getId());
         assertEquals(12, carAd.getRenterId());
     }
@@ -51,7 +51,7 @@ public class Testing {
         User user = new User(12, "Arne", 52);
         Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
         cars.add(nissanLeaf);
-        assertEquals("model.Car{make='Nissan', modelYear=2018, model='Leaf', kmDistance=200000, registrationnumber='RJ3292', gearType='Manual', fuelType='Gas', seats=5, doors=4}", nissanLeaf.toString());
+        assertEquals("model.Car{make='Nissan', modelYear=2018, model='Leaf', kmDistance=200000, registrationnumber='RJ3292', gearType='Manual', fuelType='Gas', seats=5, doors=4, user=12}", nissanLeaf.toString());
     }
 
 

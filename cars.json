@@ -64,4 +64,15 @@
   "seats" : 5,
   "doors" : 4,
   "user" : 1
+}, {
+  "make" : "Troll",
+  "modelYear" : 1957,
+  "model" : "Prøvevognen",
+  "kmDistance" : 200000,
+  "registrationnumber" : "4315874310",
+  "gearType" : "Manual",
+  "fuelType" : "Gas",
+  "seats" : 5,
+  "doors" : 4,
+  "user" : 2
 } ]
