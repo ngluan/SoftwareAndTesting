@@ -11,11 +11,13 @@ import java.util.Date;
 import java.util.List;
 
 public class Methods {
+    public static int userId;
+
     public static void registerCar(String make, int year, String model, String regnum){
         //create car object from parameters
         //read list of cars from JSON, add car to the list, write list to JSON
         //alternatively just add the element to the end of the JSON file
-        Car newCar = new Car(make, year, model, 200000, regnum, "Manual", "Gas", 5, 4, 1);
+        Car newCar = new Car(make, year, model, 200000, regnum, "Manual", "Gas", 5, 4, userId);
 
         //List<Car> cars = readCarsFromJson();
         //cars.add(newCar);
@@ -27,6 +29,8 @@ public class Methods {
     }
     public static void showCarAds(){
         // Method for showing all car ads in UI
+        // List<Car> cars = readCarsFromJson()
+        // Might move this to only MainGUI if this only changes GUI
     }
     public static void login(int userid) {
 
