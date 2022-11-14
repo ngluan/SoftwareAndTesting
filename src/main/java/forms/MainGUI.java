@@ -4,10 +4,12 @@ import models.Car;
 import tools.Methods;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class MainGUI extends JFrame{
@@ -157,10 +159,37 @@ public class MainGUI extends JFrame{
                 JButton buttonDelete = new JButton("Delete");
                 panel.add(buttonDelete);
                 panel.add(new JLabel("Registration number: " + car.getRegistrationnumber()));
-                panel.add(new JTextField());
-                panel.add(new JTextField());
+                JTextField startField = new JTextField();
+                panel.add(startField);
+                JTextField endField = new JTextField();
+                panel.add(endField);
                 JButton buttonCreateAd = new JButton("Create Ad");
                 panel.add(buttonCreateAd);
+
+                // Assign buttons
+                buttonDelete.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        Methods.deleteCar(car.getRegistrationnumber());
+                        System.out.println("delete car " + car.getRegistrationnumber());
+                    }
+                });
+                buttonCreateAd.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        try
+                        {
+                            Date startDate = new SimpleDateFormat("dd/MM/yyyy").parse(startField.getText());
+                            Date endDate = new SimpleDateFormat("dd/MM/yyyy").parse(startField.getText());
+                            Methods.createCarAd(car.getRegistrationnumber(), startDate, endDate);
+                            System.out.println("create ad for car: " + car.getRegistrationnumber());
+                        }
+                        catch (ParseException parseException)
+                        {
+                            System.out.println("Date must be in format dd/mm/yyyy");
+                        }
+                    }
+                });
 
                 carsListPanel.add(panel);
             }
