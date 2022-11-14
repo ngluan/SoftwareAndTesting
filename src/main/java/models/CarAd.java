@@ -9,8 +9,22 @@ public class CarAd {
     Date endDate;
     int renterId; //if 0, car is available for renting
 
+    public CarAd (String carRegnum, Date startDate, Date endDate) {
+        this.adId = (int)(Math.random() * 10000); //change to guarantee unique in future
+        this.carRegnum = carRegnum;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.renterId = 0;
+    }
     public CarAd (String carRegnum, Date startDate, Date endDate, int renterId) {
         this.adId = (int)(Math.random() * 10000); //change to guarantee unique in future
+        this.carRegnum = carRegnum;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.renterId = renterId;
+    }
+    public CarAd (int adId, String carRegnum, Date startDate, Date endDate, int renterId) {
+        //this.adId = (int)(Math.random() * 10000); //change to guarantee unique in future
         this.carRegnum = carRegnum;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -27,11 +41,11 @@ public class CarAd {
         }
     }
 
-    public String getCarObject() {
+    public String getCarRegnum() {
         return carRegnum;
     }
 
-    public void setCarObject(String carRegnum) {
+    public void setCarRegnum(String carRegnum) {
         this.carRegnum = carRegnum;
     }
 
@@ -59,5 +73,12 @@ public class CarAd {
         this.renterId = renterId;
     }
 
+    public int getAdId() {
+        return adId;
+    }
+
+    public void setAdId(int adId) {
+        this.adId = adId;
+    }
 
 }
