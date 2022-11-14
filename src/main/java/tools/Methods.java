@@ -52,9 +52,16 @@ public class Methods {
         // List<Car> cars = readCarsFromJson()
         // Might move this to only MainGUI if this only changes GUI
     }
-    public static void deleteCarAd(){
+    public static void deleteCarAd(int id){
         ArrayList<CarAd> carAds = readAdsFromJSON(adsJSON);
         //find ad with adId and remove it from list
+        for (CarAd ad:
+                carAds) {
+            if (id == ad.getAdId()){
+                carAds.remove(ad);
+                break;
+            }
+        }
         writeAdsToJSON(carAds, adsJSON);
     }
 
