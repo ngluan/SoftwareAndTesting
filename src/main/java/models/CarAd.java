@@ -9,6 +9,9 @@ public class CarAd {
     Date endDate;
     int renterId; //if 0, car is available for renting
 
+    public CarAd() {
+    }
+
     public CarAd (String carRegnum, Date startDate, Date endDate) {
         this.adId = (int)(Math.random() * 10000); //change to guarantee unique in future
         this.carRegnum = carRegnum;
@@ -24,7 +27,7 @@ public class CarAd {
         this.renterId = renterId;
     }
     public CarAd (int adId, String carRegnum, Date startDate, Date endDate, int renterId) {
-        //this.adId = (int)(Math.random() * 10000); //change to guarantee unique in future
+        this.adId = adId; //change to guarantee unique in future
         this.carRegnum = carRegnum;
         this.startDate = startDate;
         this.endDate = endDate;
