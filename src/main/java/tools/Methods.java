@@ -14,8 +14,8 @@ import java.util.List;
 public class Methods {
     public static int userId;
 
-    private static final File carsJSON = new File("cars.json");
-    private static final File adsJSON = new File("ads.json");
+    public static final File carsJSON = new File("cars.json");
+    public static final File adsJSON = new File("ads.json");
 
     public static void login(int id) {
         userId = id;
