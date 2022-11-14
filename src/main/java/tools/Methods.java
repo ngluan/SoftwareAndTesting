@@ -25,20 +25,20 @@ public class Methods {
         Car newCar = new Car(make, year, model, 200000, regnum, "Manual", "Gas", 5, 4, userId);
         ArrayList<Car> cars = readCarsFromJSON(carsJSON);
         cars.add(newCar);
-        writeCarsToJSON(carsJSON, cars);
+        writeCarsToJSON(cars, carsJSON);
     }
     public static void deleteCar(String regnum)
     {
         ArrayList<Car> cars = readCarsFromJSON(carsJSON);
         //find car with regnum and remove it from list
-        writeCarsToJSON(carsJSON, cars);
+        writeCarsToJSON(cars, carsJSON);
     }
 
     public static void createCarAd(String carRegnum, Date startDate, Date endDate){
         CarAd newAd = new CarAd(carRegnum, startDate, endDate, 0);
         ArrayList<CarAd> carAds = readAdsFromJSON(adsJSON);
         carAds.add(newAd);
-        writeAdsToJSON(adsJSON, carAds);
+        writeAdsToJSON(carAds, adsJSON);
     }
     public static void showCarAds(){
         // Method for showing all car ads in UI
@@ -48,11 +48,14 @@ public class Methods {
     public static void deleteCarAd(){
         ArrayList<CarAd> carAds = readAdsFromJSON(adsJSON);
         //find ad with adId and remove it from list
-        writeAdsToJSON(adsJSON, carAds);
+        writeAdsToJSON(carAds, adsJSON);
     }
 
     // File Handling
-    public static void writeCarsToJSON(File file, List<Car> cars) {
+    public static void writeCarsToJSON(List<Car> cars) {
+        writeCarsToJSON(cars, carsJSON);
+    }
+    public static void writeCarsToJSON(List<Car> cars, File file) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, cars);
@@ -60,25 +63,34 @@ public class Methods {
             e.printStackTrace();
         }
     }
+    public static ArrayList<Car> readCarsFromJSON(){
+        return readCarsFromJSON(carsJSON);
+    }
     public static ArrayList<Car> readCarsFromJSON(File fil) {
         ArrayList<Car> returnList = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            Car[] bilArray = objectMapper.readValue(fil, Car[].class);
-            returnList.addAll(Arrays.asList(bilArray));
+            Car[] carArray = objectMapper.readValue(fil, Car[].class);
+            returnList.addAll(Arrays.asList(carArray));
         } catch (IOException e) {
             e.printStackTrace();
         }
         return returnList;
     }
 
-    public static void writeAdsToJSON(File file, List<CarAd> ads) {
+    public static void writeAdsToJSON(List<CarAd> ads){
+        writeAdsToJSON(ads, adsJSON);
+    }
+    public static void writeAdsToJSON(List<CarAd> ads, File file) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, ads);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public static ArrayList<CarAd> readAdsFromJSON(){
+        return readAdsFromJSON(adsJSON);
     }
     public static ArrayList<CarAd> readAdsFromJSON(File fil) {
         ArrayList<CarAd> returnList = new ArrayList<>();
