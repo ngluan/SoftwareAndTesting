@@ -27,11 +27,17 @@ public class Methods {
         cars.add(newCar);
         writeCarsToJSON(carsJSON, cars);
     }
+
     public static void deleteCar(String regnum)
     {
         ArrayList<Car> cars = readCarsFromJSON(carsJSON);
-        //find car with regnum and remove it from list
-        writeCarsToJSON(carsJSON, cars);
+        for (Car car : cars){
+            if (car.getRegistrationnumber() == regnum) {
+                //find car with regnum and remove it from list
+                cars.remove(car);
+                writeCarsToJSON(carsJSON, cars);
+            }
+        }
     }
 
     public static void createCarAd(String carRegnum, Date startDate, Date endDate){
