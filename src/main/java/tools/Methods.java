@@ -31,6 +31,13 @@ public class Methods {
     {
         ArrayList<Car> cars = readCarsFromJSON(carsJSON);
         //find car with regnum and remove it from list
+        for (Car car:
+             cars) {
+            if (regnum.equals(car.getRegistrationnumber())){
+                cars.remove(car);
+                break;
+            }
+        }
         writeCarsToJSON(cars, carsJSON);
     }
 
