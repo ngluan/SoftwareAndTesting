@@ -4,6 +4,8 @@ import models.Car;
 import tools.Methods;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -33,6 +35,7 @@ public class MainGUI extends JFrame{
     private JTextField yearField;
     private JTextField modelField;
     private JTextField regnumField;
+    private JPanel carsListPanel;
 
     public MainGUI(String title){
         super(title);
@@ -135,9 +138,38 @@ public class MainGUI extends JFrame{
     }
     void showCars()
     {
-        //List<Car> cars = Methods.readCarsFromJson();
+        List<Car> cars = Methods.readCarsFromJSON(Methods.carsJSON);
         //foreach car in cars, create element in carsPanel with data from car
+        carsListPanel.removeAll();
+        //loop and find length with car.user == UserId?
+        carsListPanel.setLayout(new GridLayout(cars.size(), 0));
+        for(Car car : cars)
+        {
+            if (car.getUser() == Methods.userId)
+            {
+                // Create GUI
+                JPanel panel = new JPanel();
+                panel.setBorder(BorderFactory.createLineBorder(Color.black));
+                panel.setLayout(new GridLayout(2, 6, 10, 10));
+                panel.add(new JLabel(car.getMake() + " " + car.getModel() + " " + car.getModelYear()));
+                panel.add(new JLabel());
+                panel.add(new JLabel());
+                JButton buttonDelete = new JButton("Delete");
+                panel.add(buttonDelete);
+                panel.add(new JLabel("Registration number: " + car.getRegistrationnumber()));
+                panel.add(new JTextField());
+                panel.add(new JTextField());
+                JButton buttonCreateAd = new JButton("Create Ad");
+                panel.add(buttonCreateAd);
+
+                carsListPanel.add(panel);
+            }
+        }
+        revalidate();
+        repaint();
         System.out.println("show car in carsPanel");
+
+
     }
     void showBookings()
     {
