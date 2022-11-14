@@ -3,12 +3,14 @@ package models;
 import java.util.Date;
 
 public class CarAd {
+    int adId;
     String carRegnum;
     Date startDate;
     Date endDate;
     int renterId; //if 0, car is available for renting
 
     public CarAd (String carRegnum, Date startDate, Date endDate, int renterId) {
+        this.adId = (int)(Math.random() * 10000); //change to guarantee unique in future
         this.carRegnum = carRegnum;
         this.startDate = startDate;
         this.endDate = endDate;
