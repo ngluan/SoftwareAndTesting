@@ -12,13 +12,13 @@ public class Car {
     private String fuelType;
     private int seats;
     private int doors;
-    private User user;
+    private int user;
 
     public Car(){
 
     }
 
-    public Car(String make, int modelYear, String model, int kmDistance, String registrationnumber, String gearType, String fuelType, int seats, int doors, User user) {
+    public Car(String make, int modelYear, String model, int kmDistance, String registrationnumber, String gearType, String fuelType, int seats, int doors, int user) {
         this.make = make;
         this.modelYear = modelYear;
         this.model = model;
@@ -31,8 +31,8 @@ public class Car {
         this.user = user;
     }
 
-    public CarAd createCarAd(Car userCar, Date startDate, Date endDate) {
-        CarAd carad = new CarAd(userCar, startDate, endDate, 0);
+    public CarAd createCarAd(String carRegnum, Date startDate, Date endDate) {
+        CarAd carad = new CarAd(carRegnum, startDate, endDate, 0);
         return carad;
     }
 
@@ -48,8 +48,16 @@ public class Car {
                 ", fuelType='" + fuelType + '\'' +
                 ", seats=" + seats +
                 ", doors=" + doors +
-                //", user=" + user.getId() +
+                ", user=" + user +
                 '}';
+    }
+
+    public int getUser() {
+        return user;
+    }
+
+    public void setUser(int user) {
+        this.user = user;
     }
 
     public String getMake() {

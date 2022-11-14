@@ -1,8 +1,12 @@
 package forms;
 
+import models.Car;
+import tools.Methods;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class MainGUI extends JFrame{
     private JPanel mainPanel;
@@ -14,7 +18,6 @@ public class MainGUI extends JFrame{
     private JButton loginButtonUser1;
     private JButton loginButtonUser2;
     private JButton loginButtonAdmin;
-    private JButton loginButtons[] = {loginButtonUser1, loginButtonUser2, loginButtonAdmin};
 
     private JPanel carsPanel;
     private JButton navButAds;
@@ -41,40 +44,57 @@ public class MainGUI extends JFrame{
         // ADD EVENTS TO BUTTONS
 
         //login buttons
-        for (int i=0; i<loginButtons.length; i++) {
-            loginButtons[i].addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    ChangeCard(mainCardLayout, pagesPanel);
-
-                    //call login function with i+1 as argument
-                }
-            });
-        }
+        loginButtonUser1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Methods.login(1);
+                changeCard(mainCardLayout, pagesPanel);
+                showCarAds();
+            }
+        });
+        loginButtonUser2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Methods.login(2);
+                changeCard(mainCardLayout, pagesPanel);
+                showCarAds();
+            }
+        });
+        loginButtonAdmin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Methods.login(3);
+                changeCard(mainCardLayout, pagesPanel);
+                showCarAds();
+            }
+        });
 
         //nav buttons
         navButAds.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ChangeCard(pagesCardLayout, adsPanel);
+                changeCard(pagesCardLayout, adsPanel);
+                showCarAds();
             }
         });
         navButCars.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ChangeCard(pagesCardLayout, carsPanel);
+                changeCard(pagesCardLayout, carsPanel);
+                showCars();
             }
         });
         navButBook.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ChangeCard(pagesCardLayout, bookingsPanel);
+                changeCard(pagesCardLayout, bookingsPanel);
+                showBookings();
             }
         });
         navButReg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ChangeCard(pagesCardLayout, registerPanel);
+                changeCard(pagesCardLayout, registerPanel);
             }
         });
 
@@ -88,10 +108,9 @@ public class MainGUI extends JFrame{
                     String model = modelField.getText();
                     String regnum = regnumField.getText();
 
-                    //Car car = new Car(make, year, model, 200000, regnum, "Manual", "Gas", 5, 4);
-                    //methods.RegisterCar(car/paramentere)
+                    Methods.registerCar(make, year, model, regnum);
 
-                    ChangeCard(pagesCardLayout, carsPanel);
+                    changeCard(pagesCardLayout, carsPanel);
                 }
                 catch (NumberFormatException numberFormatException) {
                     System.out.println("Model year must be an int");
@@ -100,11 +119,31 @@ public class MainGUI extends JFrame{
         });
     }
 
-    void ChangeCard(JPanel cardLayoutPanel, JPanel pagePanel)
+    void changeCard(JPanel cardLayoutPanel, JPanel pagePanel)
     {
         cardLayoutPanel.removeAll();
         cardLayoutPanel.add(pagePanel);
         cardLayoutPanel.repaint();
         cardLayoutPanel.revalidate();
+    }
+
+    void showCarAds()
+    {
+        //List<CarAd> carAds = Methods.readCarAdsFromJson();
+        //foreach carAd in carAds, if renterID = 0, create element in adsPanel with data from carAd
+        System.out.println("show car ads in adsPanel");
+    }
+    void showCars()
+    {
+        //List<Car> cars = Methods.readCarsFromJson();
+        //foreach car in cars, create element in carsPanel with data from car
+        System.out.println("show car in carsPanel");
+    }
+    void showBookings()
+    {
+        //List<CarAd> carAds = Methods.readCarAdsFromJson();
+        //foreach car
+        //Ad in carAds, if renterID != 0, create element in bookingsPanel with data from carAd
+        System.out.println("show car ads in adsPanel");
     }
 }

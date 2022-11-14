@@ -7,7 +7,8 @@
   "gearType" : "Manual",
   "fuelType" : "Gas",
   "seats" : 5,
-  "doors" : 4
+  "doors" : 4,
+  "user" : 0
 }, {
   "make" : "Nissan",
   "modelYear" : 2018,
@@ -17,5 +18,61 @@
   "gearType" : "Manual",
   "fuelType" : "Gas",
   "seats" : 5,
-  "doors" : 4
+  "doors" : 4,
+  "user" : 0
+}, {
+  "make" : "Toyota",
+  "modelYear" : 1985,
+  "model" : "Corolla",
+  "kmDistance" : 200000,
+  "registrationnumber" : "2344323",
+  "gearType" : "Manual",
+  "fuelType" : "Gas",
+  "seats" : 5,
+  "doors" : 4,
+  "user" : 1
+}, {
+  "make" : "Ford",
+  "modelYear" : 2000,
+  "model" : "awekrvlawe",
+  "kmDistance" : 200000,
+  "registrationnumber" : "34531j4n513",
+  "gearType" : "Manual",
+  "fuelType" : "Gas",
+  "seats" : 5,
+  "doors" : 4,
+  "user" : 2
+}, {
+  "make" : "Mini",
+  "modelYear" : 1969,
+  "model" : "Morris",
+  "kmDistance" : 200000,
+  "registrationnumber" : "1209334",
+  "gearType" : "Manual",
+  "fuelType" : "Gas",
+  "seats" : 5,
+  "doors" : 4,
+  "user" : 1
+}, {
+  "make" : "BMW",
+  "modelYear" : 2002,
+  "model" : "Supra",
+  "kmDistance" : 200000,
+  "registrationnumber" : "AB398012",
+  "gearType" : "Manual",
+  "fuelType" : "Gas",
+  "seats" : 5,
+  "doors" : 4,
+  "user" : 1
+}, {
+  "make" : "Troll",
+  "modelYear" : 1957,
+  "model" : "Prøvevognen",
+  "kmDistance" : 200000,
+  "registrationnumber" : "4315874310",
+  "gearType" : "Manual",
+  "fuelType" : "Gas",
+  "seats" : 5,
+  "doors" : 4,
+  "user" : 2
 } ]
