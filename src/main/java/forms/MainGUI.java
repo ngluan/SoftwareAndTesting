@@ -156,11 +156,15 @@ public class MainGUI extends JFrame{
                 panel.add(new JLabel(car.getMake() + " " + car.getModel() + " " + car.getModelYear()));
                 panel.add(new JLabel());
                 panel.add(new JLabel());
-                JButton buttonDelete = new JButton("Delete");
+                panel.add(new JLabel());
+                panel.add(new JLabel());
+                JButton buttonDelete = new JButton("Delete car");
                 panel.add(buttonDelete);
                 panel.add(new JLabel("Registration number: " + car.getRegistrationnumber()));
+                panel.add(new JLabel("Start date:", SwingConstants.RIGHT));
                 JTextField startField = new JTextField();
                 panel.add(startField);
+                panel.add(new JLabel("End date:", SwingConstants.RIGHT));
                 JTextField endField = new JTextField();
                 panel.add(endField);
                 JButton buttonCreateAd = new JButton("Create Ad");
