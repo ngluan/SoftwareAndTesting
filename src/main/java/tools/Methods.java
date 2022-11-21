@@ -64,6 +64,18 @@ public class Methods {
         }
         writeAdsToJSON(carAds, adsJSON);
     }
+    public static void rentCarAd(int id){
+        ArrayList<CarAd> carAds = readAdsFromJSON(adsJSON);
+        //find ad with adId and add renterId
+        for (CarAd ad:
+                carAds) {
+            if (id == ad.getAdId()){
+                ad.setRenterId(userId);
+                break;
+            }
+        }
+        writeAdsToJSON(carAds, adsJSON);
+    }
 
     // File Handling
     public static void writeCarsToJSON(List<Car> cars) {
