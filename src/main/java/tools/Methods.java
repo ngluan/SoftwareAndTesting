@@ -32,7 +32,7 @@ public class Methods {
         ArrayList<Car> cars = readCarsFromJSON(carsJSON);
         //find car with regnum and remove it from list
         for (Car car:
-             cars) {
+                cars) {
             if (regnum.equals(car.getRegistrationnumber())){
                 cars.remove(car);
                 break;
@@ -40,6 +40,22 @@ public class Methods {
         }
         writeCarsToJSON(cars, carsJSON);
     }
+    public static void deleteCar(String regnum, File file)
+    {
+        ArrayList<Car> cars = readCarsFromJSON(file);
+        //find car with regnum and remove it from list
+        for (Car car:
+             cars) {
+            if (regnum.equals(car.getRegistrationnumber())){
+                cars.remove(car);
+                break;
+            }
+        }
+        writeCarsToJSON(cars, file);
+    }
+
+
+
 
     public static void createCarAd(String carRegnum, Date startDate, Date endDate){
         CarAd newAd = new CarAd(carRegnum, startDate, endDate, 0);

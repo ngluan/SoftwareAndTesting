@@ -2,7 +2,9 @@ import models.Car;
 import models.CarAd;
 import models.User;
 import org.junit.jupiter.api.Test;
+import tools.Methods;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -53,6 +55,21 @@ public class Testing {
         cars.add(nissanLeaf);
         assertEquals("model.Car{make='Nissan', modelYear=2018, model='Leaf', kmDistance=200000, registrationnumber='RJ3292', gearType='Manual', fuelType='Gas', seats=5, doors=4, user=12}", nissanLeaf.toString());
     }
+
+    @Test
+    public void Car_Gets_deleted_From_registered_car_JSON() {
+        ArrayList<Car> cars = new ArrayList<>();
+        User user = new User(12, "Arne", 52);
+        Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
+        cars.add(nissanLeaf);
+        File carsJSON = new File("carsTesting.json");
+        Methods.writeCarsToJSON(cars, carsJSON);
+        Methods.deleteCar("RJ3292", carsJSON);
+        ArrayList<Car> emptyList = new ArrayList<Car>();
+        assertEquals(emptyList, Methods.readCarsFromJSON(carsJSON));
+    }
+
+
 
 
 }

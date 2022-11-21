@@ -21,28 +21,6 @@
   "doors" : 4,
   "user" : 0
 }, {
-  "make" : "Toyota",
-  "modelYear" : 1985,
-  "model" : "Corolla",
-  "kmDistance" : 200000,
-  "registrationnumber" : "2344323",
-  "gearType" : "Manual",
-  "fuelType" : "Gas",
-  "seats" : 5,
-  "doors" : 4,
-  "user" : 1
-}, {
-  "make" : "BMW",
-  "modelYear" : 2002,
-  "model" : "Supra",
-  "kmDistance" : 200000,
-  "registrationnumber" : "AB398012",
-  "gearType" : "Manual",
-  "fuelType" : "Gas",
-  "seats" : 5,
-  "doors" : 4,
-  "user" : 1
-}, {
   "make" : "Troll",
   "modelYear" : 1957,
   "model" : "Prøvevognen",
@@ -54,11 +32,11 @@
   "doors" : 4,
   "user" : 2
 }, {
-  "make" : "Test",
-  "modelYear" : 2020,
-  "model" : "teeest",
+  "make" : "ldsmaldm",
+  "modelYear" : 12313,
+  "model" : "asdsds",
   "kmDistance" : 200000,
-  "registrationnumber" : "AB12332",
+  "registrationnumber" : "123123dad",
   "gearType" : "Manual",
   "fuelType" : "Gas",
   "seats" : 5,
