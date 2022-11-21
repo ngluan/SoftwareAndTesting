@@ -1,11 +1,16 @@
 package forms;
 
 import models.Car;
+import models.CarAd;
 import tools.Methods;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class MainGUI extends JFrame{
@@ -33,6 +38,8 @@ public class MainGUI extends JFrame{
     private JTextField yearField;
     private JTextField modelField;
     private JTextField regnumField;
+    private JPanel carsListPanel;
+    private JPanel adsListPanel;
 
     public MainGUI(String title){
         super(title);
@@ -111,6 +118,7 @@ public class MainGUI extends JFrame{
                     Methods.registerCar(make, year, model, regnum);
 
                     changeCard(pagesCardLayout, carsPanel);
+                    showCarAds();
                 }
                 catch (NumberFormatException numberFormatException) {
                     System.out.println("Model year must be an int");
@@ -129,15 +137,122 @@ public class MainGUI extends JFrame{
 
     void showCarAds()
     {
-        //List<CarAd> carAds = Methods.readCarAdsFromJson();
+        List<CarAd> carAds = Methods.readAdsFromJSON();
         //foreach carAd in carAds, if renterID = 0, create element in adsPanel with data from carAd
+        adsListPanel.removeAll();
+        adsListPanel.setLayout(new GridLayout(carAds.size(), 0, 10, 10));
+        for(CarAd carAd : carAds)
+        {
+            if(carAd.getRenterId() == 0) //if car isn't rented
+            {
+                // Create GUI
+                JPanel panel = new JPanel();
+                panel.setBorder(BorderFactory.createLineBorder(Color.black));
+                panel.setLayout(new GridLayout(2, 5, 10, 10));
+                //Car car = Methods.getCarWithRegnum(carAd.getCarRegnum());
+                panel.add(new JLabel(carAd.getCarRegnum()));
+                panel.add(new JLabel("test"));
+                panel.add(new JLabel("test"));
+                panel.add(new JLabel("test"));
+                JButton buttonDelete = new JButton("Delete add");
+                panel.add(buttonDelete);
+                panel.add(new JLabel("Start: " + carAd.getStartDate()));
+                panel.add(new JLabel("End: " + carAd.getEndDate()));
+                panel.add(new JLabel("test"));
+                panel.add(new JLabel("test"));
+                JButton buttonRent = new JButton("Rent car");
+                panel.add(buttonRent);
+
+                // Assign buttons
+                buttonDelete.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        Methods.deleteCarAd(carAd.getAdId());
+                        System.out.println("delete car ad" + carAd.getAdId());
+                        showCarAds();
+                    }
+                });
+                buttonRent.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                            Methods.rentCarAd(carAd.getAdId());
+                            System.out.println("rent car: " + carAd.getAdId());
+                            showCarAds();
+                    }
+                });
+
+                adsListPanel.add(panel);
+            }
+        }
         System.out.println("show car ads in adsPanel");
     }
     void showCars()
     {
-        //List<Car> cars = Methods.readCarsFromJson();
+        List<Car> cars = Methods.readCarsFromJSON(Methods.carsJSON);
         //foreach car in cars, create element in carsPanel with data from car
+        carsListPanel.removeAll();
+        //loop and find length with car.user == UserId?
+        carsListPanel.setLayout(new GridLayout(cars.size(), 0, 10, 10));
+        for(Car car : cars)
+        {
+            if (car.getUser() == Methods.userId)
+            {
+                // Create GUI
+                JPanel panel = new JPanel();
+                panel.setBorder(BorderFactory.createLineBorder(Color.black));
+                panel.setLayout(new GridLayout(2, 6, 10, 10));
+                panel.add(new JLabel(car.getMake() + " " + car.getModel() + " " + car.getModelYear()));
+                panel.add(new JLabel());
+                panel.add(new JLabel());
+                panel.add(new JLabel());
+                panel.add(new JLabel());
+                JButton buttonDelete = new JButton("Delete car");
+                panel.add(buttonDelete);
+                panel.add(new JLabel("Registration number: " + car.getRegistrationnumber()));
+                panel.add(new JLabel("Start date:", SwingConstants.RIGHT));
+                JTextField startField = new JTextField();
+                panel.add(startField);
+                panel.add(new JLabel("End date:", SwingConstants.RIGHT));
+                JTextField endField = new JTextField();
+                panel.add(endField);
+                JButton buttonCreateAd = new JButton("Create Ad");
+                panel.add(buttonCreateAd);
+
+                // Assign buttons
+                buttonDelete.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        Methods.deleteCar(car.getRegistrationnumber());
+                        System.out.println("delete car " + car.getRegistrationnumber());
+                        showCars();
+                    }
+                });
+                buttonCreateAd.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        try
+                        {
+                            Date startDate = new SimpleDateFormat("dd/MM/yyyy").parse(startField.getText());
+                            Date endDate = new SimpleDateFormat("dd/MM/yyyy").parse(endField.getText());
+                            Methods.createCarAd(car.getRegistrationnumber(), startDate, endDate);
+                            System.out.println("create ad for car: " + car.getRegistrationnumber());
+                            showCars();
+                        }
+                        catch (ParseException parseException)
+                        {
+                            System.out.println("Date must be in format dd/mm/yyyy");
+                        }
+                    }
+                });
+
+                carsListPanel.add(panel);
+            }
+        }
+        revalidate();
+        repaint();
         System.out.println("show car in carsPanel");
+
+
     }
     void showBookings()
     {

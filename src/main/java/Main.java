@@ -21,7 +21,7 @@ public class Main {
 
         File JSONFil = new File("cars.json");
 
-        Methods.writeCarsToJSON("cars.json", cars);
+        Methods.writeCarsToJSON(cars);
 
         ArrayList<Car> carReadFromFile = Methods.readCarsFromJSON(JSONFil);
 
