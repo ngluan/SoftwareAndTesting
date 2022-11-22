@@ -140,7 +140,7 @@ public class MainGUI extends JFrame{
         List<CarAd> carAds = Methods.readAdsFromJSON();
         //foreach carAd in carAds, if renterID = 0, create element in adsPanel with data from carAd
         adsListPanel.removeAll();
-        adsListPanel.setLayout(new GridLayout(carAds.size(), 0, 10, 10));
+        adsListPanel.setLayout(new GridLayout(carAds.size()+1, 0, 10, 10));
         for(CarAd carAd : carAds)
         {
             if(carAd.getRenterId() == 0) //if car isn't rented
@@ -194,7 +194,7 @@ public class MainGUI extends JFrame{
         //foreach car in cars, create element in carsPanel with data from car
         carsListPanel.removeAll();
         //loop and find length with car.user == UserId?
-        carsListPanel.setLayout(new GridLayout(cars.size(), 0, 10, 10));
+        carsListPanel.setLayout(new GridLayout(cars.size()+1, 0, 10, 10));
         for(Car car : cars)
         {
             if (car.getUser() == Methods.userId)
