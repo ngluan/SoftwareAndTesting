@@ -21,12 +21,21 @@ public class Methods {
         userId = id;
     }
 
+
     public static void registerCar(String make, int year, String model, String regnum){
         Car newCar = new Car(make, year, model, 200000, regnum, "Manual", "Gas", 5, 4, userId);
         ArrayList<Car> cars = readCarsFromJSON(carsJSON);
         cars.add(newCar);
         writeCarsToJSON(cars, carsJSON);
     }
+
+    public static void registerCar(String make, int year, String model, String regnum, File file){
+        Car newCar = new Car(make, year, model, 200000, regnum, "Manual", "Gas", 5, 4, userId);
+        ArrayList<Car> cars = readCarsFromJSON(file);
+        cars.add(newCar);
+        writeCarsToJSON(cars, file);
+    }
+
     public static void deleteCar(String regnum)
     {
         ArrayList<Car> cars = readCarsFromJSON(carsJSON);

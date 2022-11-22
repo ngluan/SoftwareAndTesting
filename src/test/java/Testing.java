@@ -57,7 +57,7 @@ public class Testing {
 
 
     @Test
-    public void Testing_if_Car_object_returns_in_json_format() {
+    public void Car_Object_Returns_In_JSON_Format() {
         ArrayList<Car> cars = new ArrayList<>();
         User user = new User(12, "Arne", 52);
         Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
@@ -66,7 +66,7 @@ public class Testing {
     }
 
     @Test
-    public void Car_Gets_deleted_From_registered_car_JSON() {
+    public void Car_Gets_deleted_From_JSON_File() {
         ArrayList<Car> cars = new ArrayList<>();
         User user = new User(12, "Arne", 52);
         Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
@@ -87,16 +87,15 @@ public class Testing {
         Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
         cars.add(nissanLeaf);
         Methods.writeCarsToJSON(cars, carsJSON);
-        // Error because of line endings, identical output but test fails
         assertEquals(cars.toString(), Methods.readCarsFromJSON(carsJSON).toString());
     }
 
 
     @Test
-    public void CarAd_Gets_Deleted_From_JSON() {
+    public void CarAd_Gets_Deleted_From_JSON_File() {
         File carAdJSON = new File("carAdTesting.json");
         ArrayList<Car> cars = new ArrayList<>();
-        Methods.writeCarsToJSON(cars); // Overwrite JSON test file
+        Methods.writeCarsToJSON(cars, carAdJSON); // Overwrite JSON test file
         User user = new User(0, "Arne", 52);
         Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
         cars.add(nissanLeaf);
@@ -104,6 +103,23 @@ public class Testing {
         Methods.deleteCarAd(carAd.getAdId(), carAdJSON);
         ArrayList<CarAd> emptyList = new ArrayList<>();
         assertEquals(emptyList, Methods.readAdsFromJSON(carAdJSON));
+    }
+
+    @Test
+    public void Car_can_get_registered() {
+        File carsJSON = new File("carsTesting.json");
+        ArrayList<Car> emptyList = new ArrayList<>();
+        Methods.writeCarsToJSON(emptyList, carsJSON); // Overwrite JSON test file
+        User user = new User(0, "Arne", 52);
+        Methods.registerCar("bmw", 2018, "sykt", "AB02938", carsJSON);
+        assertEquals("[model.Car{make='bmw', modelYear=2018, model='sykt', kmDistance=200000, registrationnumber='AB02938', gearType='Manual', fuelType='Gas', seats=5, doors=4, user=0}]", Methods.readCarsFromJSON(carsJSON).toString());
+    }
+
+    @Test
+    public void User_login() {
+        int sessionId = 1;
+        Methods.login(sessionId);
+        assertEquals(sessionId, Methods.userId);
     }
 
 }
