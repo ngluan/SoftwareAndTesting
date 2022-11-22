@@ -88,7 +88,7 @@ public class Testing {
         cars.add(nissanLeaf);
         Methods.writeCarsToJSON(cars, carsJSON);
         // Error because of line endings, identical output but test fails
-        assertEquals(cars, Methods.readCarsFromJSON(carsJSON));
+        assertEquals(cars.toString(), Methods.readCarsFromJSON(carsJSON).toString());
     }
 
 
