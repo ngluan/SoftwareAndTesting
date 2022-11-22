@@ -63,6 +63,13 @@ public class Methods {
         carAds.add(newAd);
         writeAdsToJSON(carAds, adsJSON);
     }
+
+    public static void createCarAd(String carRegnum, Date startDate, Date endDate, File file){
+        CarAd newAd = new CarAd(carRegnum, startDate, endDate, 0);
+        ArrayList<CarAd> carAds = readAdsFromJSON(file);
+        carAds.add(newAd);
+        writeAdsToJSON(carAds, file);
+    }
     public static void showCarAds(){
         // Method for showing all car ads in UI
         // List<Car> cars = readCarsFromJson()
@@ -80,6 +87,20 @@ public class Methods {
         }
         writeAdsToJSON(carAds, adsJSON);
     }
+
+    public static void deleteCarAd(int id, File file){
+        ArrayList<CarAd> carAds = readAdsFromJSON(file);
+        //find ad with adId and remove it from list
+        for (CarAd ad:
+                carAds) {
+            if (id == ad.getAdId()){
+                carAds.remove(ad);
+                break;
+            }
+        }
+        writeAdsToJSON(carAds, file);
+    }
+
     public static void rentCarAd(int id){
         ArrayList<CarAd> carAds = readAdsFromJSON(adsJSON);
         //find ad with adId and add renterId

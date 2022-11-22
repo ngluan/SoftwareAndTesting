@@ -69,7 +69,17 @@ public class Testing {
         assertEquals(emptyList, Methods.readCarsFromJSON(carsJSON));
     }
 
-
-
+    @Test
+    public void CarAd_Gets_Deleted_From_JSON() {
+        ArrayList<Car> cars = new ArrayList<>();
+        User user = new User(0, "Arne", 52);
+        Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
+        cars.add(nissanLeaf);
+        File carAdJSON = new File("carAdTesting.json");
+        Methods.createCarAd(nissanLeaf.getRegistrationnumber(), null, null, carAdJSON);
+        Methods.deleteCarAd(0, carAdJSON);
+        ArrayList<CarAd> emptyList = new ArrayList<>();
+        assertEquals(emptyList, Methods.readAdsFromJSON(carAdJSON));
+    }
 
 }
