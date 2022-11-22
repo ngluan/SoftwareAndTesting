@@ -118,7 +118,7 @@ public class MainGUI extends JFrame{
                     Methods.registerCar(make, year, model, regnum);
 
                     changeCard(pagesCardLayout, carsPanel);
-                    showCarAds();
+                    showCars();
                 }
                 catch (NumberFormatException numberFormatException) {
                     System.out.println("Model year must be an int");
@@ -184,6 +184,8 @@ public class MainGUI extends JFrame{
                 adsListPanel.add(panel);
             }
         }
+        revalidate();
+        repaint();
         System.out.println("show car ads in adsPanel");
     }
     void showCars()
