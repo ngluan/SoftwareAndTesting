@@ -64,12 +64,14 @@ public class Methods {
         writeAdsToJSON(carAds, adsJSON);
     }
 
-    public static void createCarAd(String carRegnum, Date startDate, Date endDate, File file){
+    public static CarAd createCarAd(String carRegnum, Date startDate, Date endDate, File file){
         CarAd newAd = new CarAd(carRegnum, startDate, endDate, 0);
         ArrayList<CarAd> carAds = readAdsFromJSON(file);
         carAds.add(newAd);
         writeAdsToJSON(carAds, file);
+        return newAd;
     }
+
     public static void showCarAds(){
         // Method for showing all car ads in UI
         // List<Car> cars = readCarsFromJson()
@@ -107,7 +109,7 @@ public class Methods {
         for (CarAd ad:
                 carAds) {
             if (id == ad.getAdId()){
-                ad.setRenterId(userId);
+                ad.rentCar(userId);
                 break;
             }
         }

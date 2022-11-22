@@ -7,8 +7,7 @@ import tools.Methods;
 import java.io.File;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Testing {
 
@@ -35,6 +34,16 @@ public class Testing {
         Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
         CarAd carAd = new CarAd(nissanLeaf.getRegistrationnumber(), null, null, 0);
         assertEquals(true, carAd.rentCar(user2.getId()));
+    }
+
+    @Test
+    public void Car_cant_get_rented_twice() {
+        User user = new User(12, "Arne", 52);
+        User user2 = new User(9, "Ronny", 25);
+        Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
+        CarAd carAd = new CarAd(nissanLeaf.getRegistrationnumber(), null, null, 0);
+        carAd.rentCar(user2.getId());
+        assertEquals(false, carAd.rentCar(user2.getId()));
     }
 
     @Test
@@ -70,14 +79,29 @@ public class Testing {
     }
 
     @Test
-    public void CarAd_Gets_Deleted_From_JSON() {
+    public void Car_Gets_added_to_JSON() {
+        File carsJSON = new File("carsTesting.json");
         ArrayList<Car> cars = new ArrayList<>();
+        Methods.writeCarsToJSON(cars); // Overwrite JSON test file
+        User user = new User(12, "Arne", 52);
+        Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
+        cars.add(nissanLeaf);
+        Methods.writeCarsToJSON(cars, carsJSON);
+        // Error because of line endings, identical output but test fails
+        assertEquals(cars, Methods.readCarsFromJSON(carsJSON));
+    }
+
+
+    @Test
+    public void CarAd_Gets_Deleted_From_JSON() {
+        File carAdJSON = new File("carAdTesting.json");
+        ArrayList<Car> cars = new ArrayList<>();
+        Methods.writeCarsToJSON(cars); // Overwrite JSON test file
         User user = new User(0, "Arne", 52);
         Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
         cars.add(nissanLeaf);
-        File carAdJSON = new File("carAdTesting.json");
-        Methods.createCarAd(nissanLeaf.getRegistrationnumber(), null, null, carAdJSON);
-        Methods.deleteCarAd(0, carAdJSON);
+        CarAd carAd = Methods.createCarAd(nissanLeaf.getRegistrationnumber(), null, null, carAdJSON);
+        Methods.deleteCarAd(carAd.getAdId(), carAdJSON);
         ArrayList<CarAd> emptyList = new ArrayList<>();
         assertEquals(emptyList, Methods.readAdsFromJSON(carAdJSON));
     }
