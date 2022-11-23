@@ -36,6 +36,20 @@ public class Methods {
         writeCarsToJSON(cars, file);
     }
 
+    public static Car getCar(String regnum)
+    {
+        ArrayList<Car> cars = readCarsFromJSON(carsJSON);
+        for (Car car : cars)
+        {
+            if (regnum.equals(car.getRegistrationnumber()))
+            {
+                return car;
+            }
+        }
+        System.out.println("Car with regnum " + regnum + " not found");
+        return null;
+    }
+
     public static void deleteCar(String regnum)
     {
         ArrayList<Car> cars = readCarsFromJSON(carsJSON);

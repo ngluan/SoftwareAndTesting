@@ -1,1 +1,12 @@
-[ ]
+[ {
+  "make" : "Toyota",
+  "modelYear" : 1987,
+  "model" : "Corolla",
+  "kmDistance" : 200000,
+  "registrationnumber" : "AB12345",
+  "gearType" : "Manual",
+  "fuelType" : "Gas",
+  "seats" : 5,
+  "doors" : 4,
+  "user" : 1
+} ]

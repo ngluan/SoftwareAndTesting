@@ -149,38 +149,45 @@ public class MainGUI extends JFrame{
                 JPanel panel = new JPanel();
                 panel.setBorder(BorderFactory.createLineBorder(Color.black));
                 panel.setLayout(new GridLayout(2, 5, 10, 10));
-                //Car car = Methods.getCarWithRegnum(carAd.getCarRegnum());
+                Car car = Methods.getCar(carAd.getCarRegnum());
                 panel.add(new JLabel(carAd.getCarRegnum()));
-                panel.add(new JLabel("test"));
-                panel.add(new JLabel("test"));
-                panel.add(new JLabel("test"));
-                JButton buttonDelete = new JButton("Delete add");
-                panel.add(buttonDelete);
+                panel.add(new JLabel());
+                panel.add(new JLabel());
+                panel.add(new JLabel());
+                if (car.getUser() == Methods.userId) {
+                    JButton buttonDelete = new JButton("Delete add");
+                    panel.add(buttonDelete);
+                    buttonDelete.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            Methods.deleteCarAd(carAd.getAdId());
+                            System.out.println("delete car ad" + carAd.getAdId());
+                            showCarAds();
+                        }
+                    });
+                }
+                else {
+                    panel.add(new JLabel());
+                }
                 panel.add(new JLabel("Start: " + carAd.getStartDate()));
                 panel.add(new JLabel("End: " + carAd.getEndDate()));
-                panel.add(new JLabel("test"));
-                panel.add(new JLabel("test"));
-                JButton buttonRent = new JButton("Rent car");
-                panel.add(buttonRent);
-
-                // Assign buttons
-                buttonDelete.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        Methods.deleteCarAd(carAd.getAdId());
-                        System.out.println("delete car ad" + carAd.getAdId());
-                        showCarAds();
-                    }
-                });
-                buttonRent.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
+                panel.add(new JLabel());
+                panel.add(new JLabel());
+                if (car.getUser() != Methods.userId) {
+                    JButton buttonRent = new JButton("Rent car");
+                    panel.add(buttonRent);
+                    buttonRent.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
                             Methods.rentCarAd(carAd.getAdId());
                             System.out.println("rent car: " + carAd.getAdId());
                             showCarAds();
-                    }
-                });
-
+                        }
+                    });
+                }
+                else {
+                    panel.add(new JLabel());
+                }
                 adsListPanel.add(panel);
             }
         }
