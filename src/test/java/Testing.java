@@ -75,7 +75,7 @@ public class Testing {
         }
 
         @Test
-        public void if_car_is_available() {
+        public void Car_Gets_Rented_If_Avalible() {
             User user = new User(12, "Arne", 52);
             Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
             CarAd carAd = new CarAd(nissanLeaf.getRegistrationnumber(), null, null, 0);
