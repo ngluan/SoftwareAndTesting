@@ -138,6 +138,18 @@ public class Methods {
         }
         writeAdsToJSON(carAds, adsJSON);
     }
+    public static void cancelBooking(int id){
+        ArrayList<CarAd> carAds = readAdsFromJSON(adsJSON);
+        //find ad with adId and remove renterId
+        for (CarAd ad:
+                carAds) {
+            if (id == ad.getAdId()){
+                ad.cancelBooking();
+                break;
+            }
+        }
+        writeAdsToJSON(carAds, adsJSON);
+    }
 
     // File Handling
     public static void writeCarsToJSON(List<Car> cars) {

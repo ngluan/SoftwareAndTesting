@@ -41,6 +41,7 @@ public class MainGUI extends JFrame{
     private JPanel carsListPanel;
     private JPanel adsListPanel;
     private JButton logoutButton;
+    private JPanel bookingsListPanel;
 
     public MainGUI(String title){
         super(title);
@@ -57,6 +58,7 @@ public class MainGUI extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 Methods.login(1);
                 changeCard(mainCardLayout, pagesPanel);
+                changeCard(pagesCardLayout, adsPanel);
                 showCarAds();
             }
         });
@@ -65,6 +67,7 @@ public class MainGUI extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 Methods.login(2);
                 changeCard(mainCardLayout, pagesPanel);
+                changeCard(pagesCardLayout, adsPanel);
                 showCarAds();
             }
         });
@@ -268,14 +271,46 @@ public class MainGUI extends JFrame{
         revalidate();
         repaint();
         System.out.println("show car in carsPanel");
-
-
     }
     void showBookings()
     {
-        //List<CarAd> carAds = Methods.readCarAdsFromJson();
-        //foreach car
         //Ad in carAds, if renterID != 0, create element in bookingsPanel with data from carAd
-        System.out.println("show car ads in adsPanel");
+        List<CarAd> bookings = Methods.readAdsFromJSON();
+        bookingsListPanel.removeAll();
+        bookingsListPanel.setLayout(new GridLayout(bookings.size()+1, 0, 10, 10));
+        for(CarAd carAd : bookings)
+        {
+            if(carAd.getRenterId() == Methods.userId && Methods.getCar(carAd.getCarRegnum()) != null) //if car is rented && exists
+            {
+                // Create GUI
+                JPanel panel = new JPanel();
+                panel.setBorder(BorderFactory.createLineBorder(Color.black));
+                panel.setLayout(new GridLayout(2, 5, 10, 10));
+                Car car = Methods.getCar(carAd.getCarRegnum());
+                panel.add(new JLabel(carAd.getCarRegnum()));
+                panel.add(new JLabel());
+                panel.add(new JLabel());
+                panel.add(new JLabel());
+                JButton buttonDelete = new JButton("Cancel booking");
+                panel.add(buttonDelete);
+                buttonDelete.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        Methods.cancelBooking(carAd.getAdId());
+                        System.out.println("canceled booking: " + carAd.getAdId());
+                        showBookings();
+                    }
+                });
+                panel.add(new JLabel("Start: " + carAd.getStartDate()));
+                panel.add(new JLabel("End: " + carAd.getEndDate()));
+                panel.add(new JLabel());
+                panel.add(new JLabel());
+                panel.add(new JLabel());
+                bookingsListPanel.add(panel);
+            }
+        }
+        revalidate();
+        repaint();
+        System.out.println("show bookings in bookingsPanel");
     }
 }
