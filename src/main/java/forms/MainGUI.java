@@ -40,6 +40,7 @@ public class MainGUI extends JFrame{
     private JTextField regnumField;
     private JPanel carsListPanel;
     private JPanel adsListPanel;
+    private JButton logoutButton;
 
     public MainGUI(String title){
         super(title);
@@ -73,6 +74,13 @@ public class MainGUI extends JFrame{
                 Methods.login(3);
                 changeCard(mainCardLayout, pagesPanel);
                 showCarAds();
+            }
+        });
+        logoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Methods.login(0);
+                changeCard(mainCardLayout, loginPanel);
             }
         });
 
@@ -143,7 +151,7 @@ public class MainGUI extends JFrame{
         adsListPanel.setLayout(new GridLayout(carAds.size()+1, 0, 10, 10));
         for(CarAd carAd : carAds)
         {
-            if(carAd.getRenterId() == 0) //if car isn't rented
+            if(carAd.getRenterId() == 0 && Methods.getCar(carAd.getCarRegnum()) != null) //if car isn't rented && exists
             {
                 // Create GUI
                 JPanel panel = new JPanel();
