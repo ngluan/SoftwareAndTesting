@@ -43,6 +43,9 @@ public class CarAd {
             return false;
         }
     }
+    public void cancelBooking(){
+        this.renterId = 0;
+    }
 
     public String getCarRegnum() {
         return carRegnum;
