@@ -5,7 +5,6 @@ import models.Car;
 import models.CarAd;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,11 +26,12 @@ public class Methods {
         registerCar(make, year, model, regnum, carsJSON);
     }
 
-    public static void registerCar(String make, int year, String model, String regnum, File file){
+    public static Car registerCar(String make, int year, String model, String regnum, File file){
         Car newCar = new Car(make, year, model, 200000, regnum, "Manual", "Gas", 5, 4, userId);
         ArrayList<Car> cars = readCarsFromJSON(file);
         cars.add(newCar);
         writeCarsToJSON(cars, file);
+        return newCar;
     }
 
     public static Car getCar(String regnum)

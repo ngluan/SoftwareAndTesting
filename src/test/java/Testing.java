@@ -45,7 +45,7 @@ public class Testing {
             }
 
             @Test
-            public void Car_cant_get_rented_twice() {
+            public void Car_can_not_get_rented_twice() {
                 User user = new User(12, "Arne", 52);
                 User user2 = new User(9, "Ronny", 25);
                 Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
@@ -53,6 +53,24 @@ public class Testing {
                 carAd.rentCar(user2.getId());
                 assertEquals(false, carAd.rentCar(user2.getId()));
             }
+
+            @Nested
+            class Cancel_Rented_Car_booking {
+                @Test
+                public void Booking_Can_Get_Cancelled_After_CarAd_Is_Rented () {
+                    File carAdJSON = new File("cancel_booking.json");
+                    ArrayList<CarAd> carAdList = new ArrayList<>();
+                    User user = new User(12, "Arne", 52);
+                    User user2 = new User(9, "Ronny", 25);
+                    Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
+                    CarAd carAd = new CarAd(nissanLeaf.getRegistrationnumber(), null, null, 0);
+                    Methods.rentCarAd(user2.getId(), carAdJSON);
+                    Methods.cancelBooking(user2.getId(), carAdJSON);
+                    assertEquals(0, carAd.getRenterId());
+                }
+
+            }
+
 
         }
 
@@ -74,8 +92,8 @@ public class Testing {
             Methods.registerCar("bmw", 2018, "sykt", "AB02938", carsJSON);
             assertEquals("[model.Car{make='bmw', modelYear=2018, model='sykt', kmDistance=200000, registrationnumber='AB02938', gearType='Manual', fuelType='Gas', seats=5, doors=4, user=1}]", Methods.readCarsFromJSON(carsJSON).toString());
         }
-    }
 
+    }
 
     @Nested
     class JSON_File_Handling_With_Car_Object{
@@ -98,7 +116,7 @@ public class Testing {
             File carsJSON = new File("carsTesting.json");
             Methods.writeCarsToJSON(cars, carsJSON);
             Methods.deleteCar("RJ3292", carsJSON);
-            ArrayList<Car> emptyList = new ArrayList<Car>();
+            ArrayList<Car> emptyList = new ArrayList<>();
             assertEquals(emptyList, Methods.readCarsFromJSON(carsJSON));
         }
 
@@ -130,14 +148,27 @@ public class Testing {
         }
 
         // Test for writing to JSON IOexception when stream error accours.
-        // basically impossible to write test this without changing read/write permissions in windows
+        // basically impossible to write test for this without changing read/write permissions in windows
 
+        // Read car and car ads JSON method returns IO Exception stack tree to terminal
+        // but works as intended
         @Test
-        public void Read_from_JSON_returns_IOException_when_input_wrong() {
+        public void Read_Car_from_JSON_returns_IOException_when_wrong_file() {
             File carsJSON = new File("carsTesting12.json");
             ArrayList<Car> cars = new ArrayList<>();
             try  {
                 Methods.readCarsFromJSON(carsJSON);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Test
+        public void Read_CarAd_from_JSON_returns_IOException_when_wrong_file() {
+            File carsJSON = new File("carsTesting13.json");
+            ArrayList<CarAd> carAds = new ArrayList<>();
+            try  {
+                Methods.readAdsFromJSON(carsJSON);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -150,23 +181,5 @@ public class Testing {
         Methods.login(sessionId);
         assertEquals(sessionId, Methods.userId);
     }
-
-    @Test
-    public void Booking_Can_Get_Cancelled_After_CarAd_Is_Rented () {
-        File carAdJSON = new File("cancel_booking.json");
-        ArrayList<CarAd> carAdList = new ArrayList<>();
-        User user = new User(12, "Arne", 52);
-        User user2 = new User(9, "Ronny", 25);
-        Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
-        CarAd carAd = new CarAd(nissanLeaf.getRegistrationnumber(), null, null, 0);
-        Methods.rentCarAd(user2.getId(), carAdJSON);
-        Methods.cancelBooking(user2.getId(), carAdJSON);
-        assertEquals(0, carAd.getRenterId());
-
-    }
-
-
-    // Make test for exeptions in Methods
-
 
 }
