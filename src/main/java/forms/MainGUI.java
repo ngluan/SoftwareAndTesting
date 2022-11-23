@@ -122,9 +122,13 @@ public class MainGUI extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 try {
                     String make = makeField.getText();
+                    makeField.setText("");
                     int year = Integer.parseInt(yearField.getText());
+                    yearField.setText("");
                     String model = modelField.getText();
+                    modelField.setText("");
                     String regnum = regnumField.getText();
+                    regnumField.setText("");
 
                     Methods.registerCar(make, year, model, regnum);
 
@@ -161,7 +165,7 @@ public class MainGUI extends JFrame{
                 panel.setBorder(BorderFactory.createLineBorder(Color.black));
                 panel.setLayout(new GridLayout(2, 5, 10, 10));
                 Car car = Methods.getCar(carAd.getCarRegnum());
-                panel.add(new JLabel(carAd.getCarRegnum()));
+                panel.add(new JLabel(car.getMake() + " " + car.getModel() + " " + car.getModelYear()));
                 panel.add(new JLabel());
                 panel.add(new JLabel());
                 panel.add(new JLabel());
@@ -287,7 +291,7 @@ public class MainGUI extends JFrame{
                 panel.setBorder(BorderFactory.createLineBorder(Color.black));
                 panel.setLayout(new GridLayout(2, 5, 10, 10));
                 Car car = Methods.getCar(carAd.getCarRegnum());
-                panel.add(new JLabel(carAd.getCarRegnum()));
+                panel.add(new JLabel(car.getMake() + " " + car.getModel() + " " + car.getModelYear()));
                 panel.add(new JLabel());
                 panel.add(new JLabel());
                 panel.add(new JLabel());
