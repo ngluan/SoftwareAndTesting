@@ -113,6 +113,22 @@ public class Methods {
         }
         writeAdsToJSON(carAds, adsJSON);
     }
+
+
+    public static void rentCarAd(int id, File file){
+        ArrayList<CarAd> carAds = readAdsFromJSON(file);
+        //find ad with adId and add renterId
+        for (CarAd ad:
+                carAds) {
+            if (id == ad.getAdId()){
+                ad.rentCar(userId);
+                break;
+            }
+        }
+        writeAdsToJSON(carAds, file);
+    }
+
+
     public static void cancelBooking(int id){
         ArrayList<CarAd> carAds = readAdsFromJSON(adsJSON);
         //find ad with adId and remove renterId
@@ -124,6 +140,19 @@ public class Methods {
             }
         }
         writeAdsToJSON(carAds, adsJSON);
+    }
+
+    public static void cancelBooking(int id, File file){
+        ArrayList<CarAd> carAds = readAdsFromJSON(file);
+        //find ad with adId and remove renterId
+        for (CarAd ad:
+                carAds) {
+            if (id == ad.getAdId()){
+                ad.cancelBooking();
+                break;
+            }
+        }
+        writeAdsToJSON(carAds, file);
     }
 
     // File Handling

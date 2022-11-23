@@ -129,14 +129,8 @@ public class Testing {
             assertEquals(emptyList, Methods.readAdsFromJSON(carAdJSON));
         }
 
-        @Test
-        public void Write_To_JSON_File_Returns_Error_if_Wrong_file () {
-            File carsJSON = new File("carsTesting.json");
-            ArrayList<Car> cars = new ArrayList<>();
-            Methods.writeCarsToJSON(cars, carsJSON); // Overwrite JSON test file
-
-
-        }
+        // Test for writing to JSON IOexception when stream error accours.
+        // basically impossible to write test this without changing read/write permissions in windows
 
         @Test
         public void Read_from_JSON_returns_IOException_when_input_wrong() {
@@ -155,6 +149,20 @@ public class Testing {
         int sessionId = 1;
         Methods.login(sessionId);
         assertEquals(sessionId, Methods.userId);
+    }
+
+    @Test
+    public void Booking_Can_Get_Cancelled_After_CarAd_Is_Rented () {
+        File carAdJSON = new File("cancel_booking.json");
+        ArrayList<CarAd> carAdList = new ArrayList<>();
+        User user = new User(12, "Arne", 52);
+        User user2 = new User(9, "Ronny", 25);
+        Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
+        CarAd carAd = new CarAd(nissanLeaf.getRegistrationnumber(), null, null, 0);
+        Methods.rentCarAd(user2.getId(), carAdJSON);
+        Methods.cancelBooking(user2.getId(), carAdJSON);
+        assertEquals(0, carAd.getRenterId());
+
     }
 
 
