@@ -22,8 +22,8 @@ public class Methods {
     }
 
     //Alle override metoder dekkes ikke av coverage
-    public static void registerCar(String make, int year, String model, String regnum){
-        registerCar(make, year, model, regnum, carsJSON);
+    public static Car registerCar(String make, int year, String model, String regnum){
+        return registerCar(make, year, model, regnum, carsJSON);
     }
 
     public static Car registerCar(String make, int year, String model, String regnum, File file){
@@ -36,7 +36,7 @@ public class Methods {
 
     public static Car getCar(String regnum)
     {
-        ArrayList<Car> cars = readCarsFromJSON(carsJSON);
+        ArrayList<Car> cars = readCarsFromJSON();
         for (Car car : cars)
         {
             if (regnum.equals(car.getRegistrationnumber()))
@@ -51,6 +51,7 @@ public class Methods {
     public static void deleteCar(String regnum)
     {
         deleteCar(regnum, carsJSON);
+        //delete corresponding ads
     }
     public static void deleteCar(String regnum, File file)
     {
@@ -66,15 +67,12 @@ public class Methods {
         writeCarsToJSON(cars, file);
     }
 
-
-
-
     public static CarAd createCarAd(String carRegnum, Date startDate, Date endDate){
         return createCarAd(carRegnum, startDate, endDate, adsJSON);
     }
 
     public static CarAd createCarAd(String carRegnum, Date startDate, Date endDate, File file){
-        CarAd newAd = new CarAd(carRegnum, startDate, endDate, 0);
+        CarAd newAd = new CarAd(carRegnum, startDate, endDate);
         ArrayList<CarAd> carAds = readAdsFromJSON(file);
         carAds.add(newAd);
         writeAdsToJSON(carAds, file);
@@ -102,16 +100,7 @@ public class Methods {
     }
 
     public static void rentCarAd(int id){
-        ArrayList<CarAd> carAds = readAdsFromJSON(adsJSON);
-        //find ad with adId and add renterId
-        for (CarAd ad:
-                carAds) {
-            if (id == ad.getAdId()){
-                ad.rentCar(userId);
-                break;
-            }
-        }
-        writeAdsToJSON(carAds, adsJSON);
+        rentCarAd(id, adsJSON);
     }
 
 
@@ -130,16 +119,7 @@ public class Methods {
 
 
     public static void cancelBooking(int id){
-        ArrayList<CarAd> carAds = readAdsFromJSON(adsJSON);
-        //find ad with adId and remove renterId
-        for (CarAd ad:
-                carAds) {
-            if (id == ad.getAdId()){
-                ad.cancelBooking();
-                break;
-            }
-        }
-        writeAdsToJSON(carAds, adsJSON);
+        cancelBooking(id, adsJSON);
     }
 
     public static void cancelBooking(int id, File file){
