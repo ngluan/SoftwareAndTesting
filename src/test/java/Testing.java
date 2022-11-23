@@ -122,4 +122,7 @@ public class Testing {
         assertEquals(sessionId, Methods.userId);
     }
 
+    // Make test for exeptions in Methods
+
+
 }
