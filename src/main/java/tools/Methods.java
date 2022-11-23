@@ -21,12 +21,9 @@ public class Methods {
         userId = id;
     }
 
-
+    //Alle override metoder dekkes ikke av coverage
     public static void registerCar(String make, int year, String model, String regnum){
-        Car newCar = new Car(make, year, model, 200000, regnum, "Manual", "Gas", 5, 4, userId);
-        ArrayList<Car> cars = readCarsFromJSON(carsJSON);
-        cars.add(newCar);
-        writeCarsToJSON(cars, carsJSON);
+        registerCar(make, year, model, regnum, carsJSON);
     }
 
     public static void registerCar(String make, int year, String model, String regnum, File file){
@@ -52,16 +49,7 @@ public class Methods {
 
     public static void deleteCar(String regnum)
     {
-        ArrayList<Car> cars = readCarsFromJSON(carsJSON);
-        //find car with regnum and remove it from list
-        for (Car car:
-                cars) {
-            if (regnum.equals(car.getRegistrationnumber())){
-                cars.remove(car);
-                break;
-            }
-        }
-        writeCarsToJSON(cars, carsJSON);
+        deleteCar(regnum, carsJSON);
     }
     public static void deleteCar(String regnum, File file)
     {
@@ -80,11 +68,8 @@ public class Methods {
 
 
 
-    public static void createCarAd(String carRegnum, Date startDate, Date endDate){
-        CarAd newAd = new CarAd(carRegnum, startDate, endDate, 0);
-        ArrayList<CarAd> carAds = readAdsFromJSON(adsJSON);
-        carAds.add(newAd);
-        writeAdsToJSON(carAds, adsJSON);
+    public static CarAd createCarAd(String carRegnum, Date startDate, Date endDate){
+        return createCarAd(carRegnum, startDate, endDate, adsJSON);
     }
 
     public static CarAd createCarAd(String carRegnum, Date startDate, Date endDate, File file){
@@ -100,18 +85,7 @@ public class Methods {
         // List<Car> cars = readCarsFromJson()
         // Might move this to only MainGUI if this only changes GUI
     }
-    public static void deleteCarAd(int id){
-        ArrayList<CarAd> carAds = readAdsFromJSON(adsJSON);
-        //find ad with adId and remove it from list
-        for (CarAd ad:
-                carAds) {
-            if (id == ad.getAdId()){
-                carAds.remove(ad);
-                break;
-            }
-        }
-        writeAdsToJSON(carAds, adsJSON);
-    }
+    public static void deleteCarAd(int id){deleteCarAd(id, adsJSON);}
 
     public static void deleteCarAd(int id, File file){
         ArrayList<CarAd> carAds = readAdsFromJSON(file);
