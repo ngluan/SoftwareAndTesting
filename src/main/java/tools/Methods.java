@@ -99,22 +99,23 @@ public class Methods {
         writeAdsToJSON(carAds, file);
     }
 
-    public static void rentCarAd(int id){
-        rentCarAd(id, adsJSON);
+    public static boolean rentCarAd(int id){
+        return rentCarAd(id, adsJSON);
     }
 
-
-    public static void rentCarAd(int id, File file){
+    public static boolean rentCarAd(int id, File file){
+        boolean value = false;
         ArrayList<CarAd> carAds = readAdsFromJSON(file);
         //find ad with adId and add renterId
         for (CarAd ad:
                 carAds) {
             if (id == ad.getAdId()){
-                ad.rentCar(userId);
+                value = ad.rentCar(userId);
                 break;
             }
         }
         writeAdsToJSON(carAds, file);
+        return value;
     }
 
 
