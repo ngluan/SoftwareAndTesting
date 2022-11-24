@@ -1,1 +1,23 @@
-[ ]
+[ {
+  "make" : "Ford",
+  "modelYear" : 2000,
+  "model" : "test",
+  "kmDistance" : 200000,
+  "registrationnumber" : "ae12345",
+  "gearType" : "Manual",
+  "fuelType" : "Gas",
+  "seats" : 5,
+  "doors" : 4,
+  "user" : 2
+}, {
+  "make" : "Mini",
+  "modelYear" : 1990,
+  "model" : "Cooper",
+  "kmDistance" : 200000,
+  "registrationnumber" : "je12345",
+  "gearType" : "Manual",
+  "fuelType" : "Gas",
+  "seats" : 5,
+  "doors" : 4,
+  "user" : 1
+} ]

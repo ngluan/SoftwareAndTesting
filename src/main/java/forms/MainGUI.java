@@ -203,7 +203,10 @@ public class MainGUI extends JFrame{
                 else {
                     panel.add(new JLabel());
                 }
-                adsListPanel.add(panel);
+                if (car.getUser() == Methods.userId)
+                    adsListPanel.add(panel, 0);
+                else
+                    adsListPanel.add(panel);
             }
         }
         revalidate();
@@ -235,9 +238,11 @@ public class MainGUI extends JFrame{
                 panel.add(new JLabel("Registration number: " + car.getRegistrationnumber()));
                 panel.add(new JLabel("Start date:", SwingConstants.RIGHT));
                 JTextField startField = new JTextField();
+                startField.setToolTipText("dd/MM/yyyy");
                 panel.add(startField);
                 panel.add(new JLabel("End date:", SwingConstants.RIGHT));
                 JTextField endField = new JTextField();
+                endField.setToolTipText("dd/MM/yyyy");
                 panel.add(endField);
                 JButton buttonCreateAd = new JButton("Create Ad");
                 panel.add(buttonCreateAd);
@@ -284,33 +289,46 @@ public class MainGUI extends JFrame{
         bookingsListPanel.setLayout(new GridLayout(bookings.size()+1, 0, 10, 10));
         for(CarAd carAd : bookings)
         {
-            if(carAd.getRenterId() == Methods.userId && Methods.getCar(carAd.getCarRegnum()) != null) //if car is rented && exists
+            if (Methods.getCar(carAd.getCarRegnum()) != null)
             {
-                // Create GUI
-                JPanel panel = new JPanel();
-                panel.setBorder(BorderFactory.createLineBorder(Color.black));
-                panel.setLayout(new GridLayout(2, 5, 10, 10));
-                Car car = Methods.getCar(carAd.getCarRegnum());
-                panel.add(new JLabel(car.getMake() + " " + car.getModel() + " " + car.getModelYear()));
-                panel.add(new JLabel());
-                panel.add(new JLabel());
-                panel.add(new JLabel());
-                JButton buttonDelete = new JButton("Cancel booking");
-                panel.add(buttonDelete);
-                buttonDelete.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        Methods.cancelBooking(carAd.getAdId());
-                        System.out.println("canceled booking: " + carAd.getAdId());
-                        showBookings();
+                if(carAd.getRenterId() == Methods.userId || (Methods.getCar(carAd.getCarRegnum()).getUser() == Methods.userId && carAd.getRenterId() != 0)) //if car is rented or owned by user && exists
+                {
+                    // Create GUI
+                    JPanel panel = new JPanel();
+                    panel.setBorder(BorderFactory.createLineBorder(Color.black));
+                    panel.setLayout(new GridLayout(2, 5, 10, 10));
+                    Car car = Methods.getCar(carAd.getCarRegnum());
+                    panel.add(new JLabel(car.getMake() + " " + car.getModel() + " " + car.getModelYear()));
+                    panel.add(new JLabel());
+                    panel.add(new JLabel());
+                    panel.add(new JLabel());
+                    if (carAd.getRenterId() == Methods.userId) {
+                        JButton buttonDelete = new JButton("Stop booking");
+                        panel.add(buttonDelete);
+                        buttonDelete.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                Methods.cancelBooking(carAd.getAdId());
+                                System.out.println("stopped booking: " + carAd.getAdId());
+                                showBookings();
+                            }
+                        });
                     }
-                });
-                panel.add(new JLabel("Start: " + carAd.getStartDate()));
-                panel.add(new JLabel("End: " + carAd.getEndDate()));
-                panel.add(new JLabel());
-                panel.add(new JLabel());
-                panel.add(new JLabel());
-                bookingsListPanel.add(panel);
+                    else{
+                        panel.add(new JLabel("Car rented by user: " + carAd.getRenterId()));
+                    }
+                    panel.add(new JLabel("Start: " + carAd.getStartDate()));
+                    panel.add(new JLabel("End: " + carAd.getEndDate()));
+                    panel.add(new JLabel());
+                    panel.add(new JLabel());
+                    panel.add(new JLabel());
+
+                    if (car.getUser() == Methods.userId)
+                        bookingsListPanel.add(panel, 0);
+                    else
+                        bookingsListPanel.add(panel);
+                }
+
             }
         }
         revalidate();
