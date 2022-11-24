@@ -84,19 +84,21 @@ public class Methods {
         // List<Car> cars = readCarsFromJson()
         // Might move this to only MainGUI if this only changes GUI
     }
-    public static void deleteCarAd(int id){deleteCarAd(id, adsJSON);}
+    public static boolean deleteCarAd(int id){return deleteCarAd(id, adsJSON);}
 
-    public static void deleteCarAd(int id, File file){
+    public static boolean deleteCarAd(int id, File file){
+        boolean value = false;
         ArrayList<CarAd> carAds = readAdsFromJSON(file);
         //find ad with adId and remove it from list
         for (CarAd ad:
                 carAds) {
             if (id == ad.getAdId()){
-                carAds.remove(ad);
+                value = carAds.remove(ad);
                 break;
             }
         }
         writeAdsToJSON(carAds, file);
+        return value;
     }
 
     public static boolean rentCarAd(int id){
