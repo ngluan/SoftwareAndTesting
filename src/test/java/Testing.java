@@ -129,6 +129,8 @@ public class Testing {
             Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
             cars.add(nissanLeaf);
             Methods.writeCarsToJSON(cars, carsJSON);
+            String test1 = cars.toString();
+            String test2 = Methods.readCarsFromJSON(carsJSON).toString();
             assertEquals(cars.toString(), Methods.readCarsFromJSON(carsJSON).toString());
         }
 
@@ -137,14 +139,30 @@ public class Testing {
         public void CarAd_Gets_Deleted_From_JSON_File() {
             File carAdJSON = new File("carAdTesting.json");
             ArrayList<Car> cars = new ArrayList<>();
-            Methods.writeCarsToJSON(cars, carAdJSON); // Overwrite JSON test file
+            ArrayList<CarAd> emptyList = new ArrayList<>();
+            Methods.writeAdsToJSON(emptyList, carAdJSON); // Overwrite JSON test file
             User user = new User(0, "Arne", 52);
             Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
             cars.add(nissanLeaf);
             CarAd carAd = Methods.createCarAd(nissanLeaf.getRegistrationnumber(), null, null, carAdJSON);
             Methods.deleteCarAd(carAd.getAdId(), carAdJSON);
-            ArrayList<CarAd> emptyList = new ArrayList<>();
             assertEquals(emptyList, Methods.readAdsFromJSON(carAdJSON));
+        }
+
+        @Test
+        public void CarAd_Gets_Added_To_JSON_File(){
+            File carAdJSON = new File("carAdTesting.json");
+            ArrayList<Car> cars = new ArrayList<>();
+            ArrayList<CarAd> expectedList = new ArrayList<>();
+            Methods.writeAdsToJSON(expectedList, carAdJSON); // Overwrite JSON test file
+            User user = new User(0, "Arne", 52);
+            Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
+            cars.add(nissanLeaf);
+            CarAd carAd = Methods.createCarAd(nissanLeaf.getRegistrationnumber(), null, null, carAdJSON);
+            expectedList.add(carAd);
+            String test1 = expectedList.toString();
+            String test2 = Methods.readAdsFromJSON(carAdJSON).toString();
+            assertEquals(expectedList.toString(), Methods.readAdsFromJSON(carAdJSON).toString());
         }
 
         // Test for writing to JSON IOexception when stream error accours.
