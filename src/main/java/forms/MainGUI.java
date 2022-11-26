@@ -42,6 +42,7 @@ public class MainGUI extends JFrame{
     private JPanel adsListPanel;
     private JButton logoutButton;
     private JPanel bookingsListPanel;
+    private JLabel loggedInLabel;
 
     public MainGUI(String title){
         super(title);
@@ -58,6 +59,7 @@ public class MainGUI extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 Methods.login(1);
                 changeCard(mainCardLayout, pagesPanel);
+                loggedInLabel.setText("Logged in as user " + Methods.userId);
                 changeCard(pagesCardLayout, adsPanel);
                 showCarAds();
             }
@@ -67,6 +69,7 @@ public class MainGUI extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 Methods.login(2);
                 changeCard(mainCardLayout, pagesPanel);
+                loggedInLabel.setText("Logged in as user " + Methods.userId);
                 changeCard(pagesCardLayout, adsPanel);
                 showCarAds();
             }
@@ -170,19 +173,10 @@ public class MainGUI extends JFrame{
                 panel.add(new JLabel());
                 panel.add(new JLabel());
                 if (car.getUser() == Methods.userId) {
-                    JButton buttonDelete = new JButton("Delete add");
-                    panel.add(buttonDelete);
-                    buttonDelete.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            Methods.deleteCarAd(carAd.getAdId());
-                            System.out.println("delete car ad" + carAd.getAdId());
-                            showCarAds();
-                        }
-                    });
+                    panel.add(new JLabel("Your ad"));
                 }
                 else {
-                    panel.add(new JLabel());
+                    panel.add(new JLabel("Ad by user: " + car.getUser()));
                 }
                 panel.add(new JLabel("Start: " + carAd.getStartDate()));
                 panel.add(new JLabel("End: " + carAd.getEndDate()));
@@ -201,7 +195,16 @@ public class MainGUI extends JFrame{
                     });
                 }
                 else {
-                    panel.add(new JLabel());
+                    JButton buttonDelete = new JButton("Delete add");
+                    panel.add(buttonDelete);
+                    buttonDelete.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            Methods.deleteCarAd(carAd.getAdId());
+                            System.out.println("delete car ad" + carAd.getAdId());
+                            showCarAds();
+                        }
+                    });
                 }
                 if (car.getUser() == Methods.userId)
                     adsListPanel.add(panel, 0);
@@ -269,7 +272,7 @@ public class MainGUI extends JFrame{
                         }
                         catch (ParseException parseException)
                         {
-                            System.out.println("Date must be in format dd/mm/yyyy");
+                            System.out.println("Date must be in format dd/MM/yyyy");
                         }
                     }
                 });
