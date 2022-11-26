@@ -171,12 +171,10 @@
                     <children>
                       <component id="e40c7" class="javax.swing.JButton" binding="navButReg">
                         <constraints>
-                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="3" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <background color="-14287098"/>
-                          <font name="Goudy Stout" size="22"/>
-                          <foreground color="-16375553"/>
+                          <font name="Curlz MT" size="22"/>
                           <text value="Register new car"/>
                         </properties>
                       </component>
@@ -184,7 +182,9 @@
                         <constraints>
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                         </constraints>
-                        <properties/>
+                        <properties>
+                          <background color="-12828863"/>
+                        </properties>
                         <border type="none"/>
                         <children>
                           <grid id="60e91" binding="carsListPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">

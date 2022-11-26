@@ -1,23 +1,34 @@
 [ {
-  "make" : "Ford",
-  "modelYear" : 2000,
-  "model" : "test",
-  "kmDistance" : 200000,
-  "registrationnumber" : "ae12345",
-  "gearType" : "Manual",
-  "fuelType" : "Gas",
-  "seats" : 5,
-  "doors" : 4,
-  "user" : 2
-}, {
   "make" : "Mini",
-  "modelYear" : 1990,
-  "model" : "Cooper",
+  "modelYear" : 1969,
+  "model" : "Morris",
   "kmDistance" : 200000,
-  "registrationnumber" : "je12345",
+  "registrationnumber" : "TR21234",
   "gearType" : "Manual",
   "fuelType" : "Gas",
   "seats" : 5,
   "doors" : 4,
   "user" : 1
+}, {
+  "make" : "Toyota",
+  "modelYear" : 1987,
+  "model" : "Corolla",
+  "kmDistance" : 200000,
+  "registrationnumber" : "AB12344",
+  "gearType" : "Manual",
+  "fuelType" : "Gas",
+  "seats" : 5,
+  "doors" : 4,
+  "user" : 1
+}, {
+  "make" : "Mini",
+  "modelYear" : 2000,
+  "model" : "Cooper",
+  "kmDistance" : 200000,
+  "registrationnumber" : "BE12352",
+  "gearType" : "Manual",
+  "fuelType" : "Gas",
+  "seats" : 5,
+  "doors" : 4,
+  "user" : 2
 } ]
