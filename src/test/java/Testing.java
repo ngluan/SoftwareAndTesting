@@ -124,7 +124,7 @@ public class Testing {
         public void Car_Gets_added_to_JSON() {
             File carsJSON = new File("carsTesting.json");
             ArrayList<Car> cars = new ArrayList<>();
-            Methods.writeCarsToJSON(cars); // Overwrite JSON test file
+            Methods.writeCarsToJSON(cars, carsJSON); // Overwrite JSON test file
             User user = new User(12, "Arne", 52);
             Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
             cars.add(nissanLeaf);
