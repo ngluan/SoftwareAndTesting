@@ -9,15 +9,8 @@ import java.io.File;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class Testing {
-
-    @Test
-    public void Test_true_or_false() {
-        boolean isFalse = true;
-        assertTrue(isFalse);
-    }
 
     @Nested
     class CarTest {
@@ -70,6 +63,7 @@ public class Testing {
                 }
 
             }
+
 
 
         }
