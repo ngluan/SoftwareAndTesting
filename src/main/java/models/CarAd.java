@@ -34,6 +34,17 @@ public class CarAd {
         this.renterId = renterId;
     }
 
+    @Override
+    public String toString() {
+        return "CarAd{" +
+                "adId=" + adId +
+                ", carRegnum='" + carRegnum + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", renterId=" + renterId +
+                '}';
+    }
+
     public boolean rentCar(int user){
         if (renterId == 0) {
             this.renterId = user;
@@ -42,6 +53,9 @@ public class CarAd {
         else {
             return false;
         }
+    }
+    public void cancelBooking(){
+        this.renterId = 0;
     }
 
     public String getCarRegnum() {
