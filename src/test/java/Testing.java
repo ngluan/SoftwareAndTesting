@@ -1,3 +1,4 @@
+import forms.MainGUI;
 import models.Car;
 import models.CarAd;
 import models.User;
@@ -9,6 +10,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class Testing {
 
@@ -72,7 +74,7 @@ public class Testing {
                 File carsJSON = new File("carsTesting.json");
                 ArrayList<Car> emptyList = new ArrayList<>();
                 Methods.writeCarsToJSON(emptyList, carsJSON); // Overwrite JSON test file
-                User user = new User(0, "Arne", 52);
+                Methods.userId = 1;
                 Methods.registerCar("bmw", 2018, "sykt", "AB02938", carsJSON);
                 assertEquals("[model.Car{make='bmw', modelYear=2018, model='sykt', kmDistance=200000, registrationnumber='AB02938', gearType='Manual', fuelType='Gas', seats=5, doors=4, user=1}]", Methods.readCarsFromJSON(carsJSON).toString());
             }
@@ -183,4 +185,64 @@ public class Testing {
         assertEquals(sessionId, Methods.userId);
     }
 
+    @Test
+    public void Get_Car_Returns_Car_With_Correct_Regnum() {
+        File carsTestingJSON = new File("carsTesting.json");
+        ArrayList<Car> cars = new ArrayList<>();
+        Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, 1);
+        Car toyotaCorolla = new Car("Toyota", 1990, "Corolla", 200000, "AB12345", "Manual", "Gas", 5, 4, 2);
+        Car miniMorris = new Car("Mini", 1969, "Morris", 200000, "CE14234", "Manual", "Gas", 4, 2, 2);
+        cars.add(nissanLeaf);
+        cars.add(toyotaCorolla);
+        cars.add(miniMorris);
+        Methods.writeCarsToJSON(cars, carsTestingJSON);
+        assertEquals(toyotaCorolla.getRegistrationnumber(), Methods.getCar(toyotaCorolla.getRegistrationnumber(), carsTestingJSON).getRegistrationnumber());
+    }
+    @Test
+    public void Get_Car_Returns_Null_If_Car_Doesnt_Exist() {
+        File carsTestingJSON = new File("carsTesting.json");
+        ArrayList<Car> cars = new ArrayList<>();
+        Methods.writeCarsToJSON(cars, carsTestingJSON);
+        assertNull(Methods.getCar("AB12345", carsTestingJSON));
+    }
+
+    @Nested
+    class GUI{
+        @Test
+        public void Correct_Amount_Of_Cars_Are_Shown() {
+            File carsTestingJSON = new File("carsTesting.json");
+            ArrayList<Car> cars = new ArrayList<>();
+            Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, 1);
+            Car toyotaCorolla = new Car("Toyota", 1990, "Corolla", 200000, "AB12345", "Manual", "Gas", 5, 4, 2);
+            Car miniMorris = new Car("Mini", 1969, "Morris", 200000, "CE14234", "Manual", "Gas", 4, 2, 2);
+            cars.add(nissanLeaf);
+            cars.add(toyotaCorolla);
+            cars.add(miniMorris);
+            Methods.writeCarsToJSON(cars, carsTestingJSON);
+            MainGUI mainGUI = new MainGUI("CarX");
+            Methods.userId = 2;
+            assertEquals(2, mainGUI.showCars(carsTestingJSON));
+        }
+        @Test
+        public void Correct_Amount_Of_Ads_Are_Shown() {
+            File carsTestingJSON = new File("carsTesting.json");
+            File carAdTestingJSON = new File("carAdTesting.json");
+            ArrayList<Car> cars = new ArrayList<>();
+            Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, 1);
+            cars.add(nissanLeaf);
+            Methods.writeCarsToJSON(cars, carsTestingJSON);
+            ArrayList<CarAd> carAds = new ArrayList<>();
+            CarAd ad1 = new CarAd(nissanLeaf.getRegistrationnumber(), null, null, 0);
+            CarAd ad2 = new CarAd(nissanLeaf.getRegistrationnumber(), null, null, 0);
+            CarAd ad3 = new CarAd(nissanLeaf.getRegistrationnumber(), null, null, 0);
+            carAds.add(ad1);
+            carAds.add(ad2);
+            carAds.add(ad3);
+            System.out.println(carAds);
+            Methods.writeAdsToJSON(carAds, carAdTestingJSON);
+            MainGUI mainGUI = new MainGUI("CarX");
+            Methods.userId = 1;
+            assertEquals(3, mainGUI.showCarAds(carAdTestingJSON, carsTestingJSON));
+        }
+    }
 }

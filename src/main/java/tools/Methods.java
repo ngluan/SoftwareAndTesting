@@ -36,7 +36,11 @@ public class Methods {
 
     public static Car getCar(String regnum)
     {
-        ArrayList<Car> cars = readCarsFromJSON();
+        return getCar(regnum, carsJSON);
+    }
+    public static Car getCar(String regnum, File file)
+    {
+        ArrayList<Car> cars = readCarsFromJSON(file);
         for (Car car : cars)
         {
             if (regnum.equals(car.getRegistrationnumber()))

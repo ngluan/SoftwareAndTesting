@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -156,22 +157,25 @@ public class MainGUI extends JFrame{
         cardLayoutPanel.repaint();
         cardLayoutPanel.revalidate();
     }
-
-    void showCarAds()
+    public int showCarAds()
     {
-        List<CarAd> carAds = Methods.readAdsFromJSON();
+        return showCarAds(Methods.adsJSON, Methods.carsJSON);
+    }
+    public int showCarAds(File adsFile, File carsFile)
+    {
+        List<CarAd> carAds = Methods.readAdsFromJSON(adsFile);
         //foreach carAd in carAds, if renterID = 0, create element in adsPanel with data from carAd
         adsListPanel.removeAll();
         adsListPanel.setLayout(new GridLayout(carAds.size()+1, 0, 10, 10));
         for(CarAd carAd : carAds)
         {
-            if(carAd.getRenterId() == 0 && Methods.getCar(carAd.getCarRegnum()) != null) //if car isn't rented && exists
+            if(carAd.getRenterId() == 0 && Methods.getCar(carAd.getCarRegnum(), carsFile) != null) //if car isn't rented && exists
             {
                 // Create GUI
                 JPanel panel = new JPanel();
                 panel.setBorder(BorderFactory.createLineBorder(Color.black));
                 panel.setLayout(new GridLayout(2, 5, 10, 10));
-                Car car = Methods.getCar(carAd.getCarRegnum());
+                Car car = Methods.getCar(carAd.getCarRegnum(), carsFile);
                 panel.add(new JLabel(car.getMake() + " " + car.getModel() + " " + car.getModelYear()));
                 panel.add(new JLabel());
                 panel.add(new JLabel());
@@ -219,11 +223,18 @@ public class MainGUI extends JFrame{
         revalidate();
         repaint();
         System.out.println("show car ads in adsPanel");
+        System.out.println(adsListPanel.getComponentCount());
+        return adsListPanel.getComponentCount();
     }
-    void showCars()
+
+    public int showCars()
+    {
+        return showCars(Methods.carsJSON);
+    }
+    public int showCars(File file)
     {
         carAdErrorLabel.setText("");
-        List<Car> cars = Methods.readCarsFromJSON(Methods.carsJSON);
+        List<Car> cars = Methods.readCarsFromJSON(file);
         //foreach car in cars, create element in carsPanel with data from car
         carsListPanel.removeAll();
         //loop and find length with car.user == UserId?
@@ -289,6 +300,8 @@ public class MainGUI extends JFrame{
         revalidate();
         repaint();
         System.out.println("show car in carsPanel");
+        System.out.println(carsListPanel.getComponentCount());
+        return carsListPanel.getComponentCount();
     }
     void showBookings()
     {
