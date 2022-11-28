@@ -73,12 +73,14 @@ public class Testing {
             @Test
             public void Car_Can_Get_Registered() {
                 File carsJSON = new File("carsTesting.json");
-                ArrayList<Car> emptyList = new ArrayList<>();
-                Methods.writeCarsToJSON(emptyList, carsJSON); // Overwrite JSON test file
+                ArrayList<Car> cars = new ArrayList<>();
+                Methods.writeCarsToJSON(cars, carsJSON); // Overwrite JSON test file
                 Methods.userId = 1;
                 Methods.registerCar("bmw", 2018, "sykt", "AB02938", carsJSON);
                 assertEquals("[model.Car{make='bmw', modelYear=2018, model='sykt', kmDistance=200000, registrationnumber='AB02938', gearType='Manual', fuelType='Gas', seats=5, doors=4, user=1}]", Methods.readCarsFromJSON(carsJSON).toString());
             }
+
+
         }
 
     @Nested
@@ -294,6 +296,17 @@ public class Testing {
             MainGUI mainGUI = new MainGUI("CarX");
             Methods.userId = 1;
             assertEquals(3, mainGUI.showCarAds(carAdTestingJSON, carsTestingJSON));
+        }
+
+        @Test
+        public void Car_Can_Get_deleted() {
+            File carsJSON = new File("carsTesting.json");
+            ArrayList<Car> emptyList = new ArrayList<>();
+            Methods.writeCarsToJSON(emptyList, carsJSON); // Overwrite JSON test file
+            Methods.userId = 1;
+            Car car = Methods.registerCar("bmw", 2018, "sykt", "AB02938", carsJSON);
+            Methods.deleteCar(car.getRegistrationnumber(), carsJSON);
+            assertEquals(emptyList.toString(), Methods.readCarsFromJSON(carsJSON).toString());
         }
     }
 }
