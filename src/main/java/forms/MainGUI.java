@@ -43,6 +43,8 @@ public class MainGUI extends JFrame{
     private JButton logoutButton;
     private JPanel bookingsListPanel;
     private JLabel loggedInLabel;
+    private JLabel addCarErrorLabel;
+    private JLabel carAdErrorLabel;
 
     public MainGUI(String title){
         super(title);
@@ -115,6 +117,7 @@ public class MainGUI extends JFrame{
         navButReg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                addCarErrorLabel.setText("");
                 changeCard(pagesCardLayout, registerPanel);
             }
         });
@@ -140,6 +143,7 @@ public class MainGUI extends JFrame{
                 }
                 catch (NumberFormatException numberFormatException) {
                     System.out.println("Model year must be an int");
+                    addCarErrorLabel.setText("Could not add car. Make sure to fill all input fields and provide model year as integer");
                 }
             }
         });
@@ -218,6 +222,7 @@ public class MainGUI extends JFrame{
     }
     void showCars()
     {
+        carAdErrorLabel.setText("");
         List<Car> cars = Methods.readCarsFromJSON(Methods.carsJSON);
         //foreach car in cars, create element in carsPanel with data from car
         carsListPanel.removeAll();
@@ -273,6 +278,7 @@ public class MainGUI extends JFrame{
                         catch (ParseException parseException)
                         {
                             System.out.println("Date must be in format dd/MM/yyyy");
+                            carAdErrorLabel.setText("Could not create ad. Make sure to provide both dates in format dd/MM/yyyy");
                         }
                     }
                 });
