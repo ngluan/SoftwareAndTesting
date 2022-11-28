@@ -222,8 +222,7 @@ public class MainGUI extends JFrame{
         }
         revalidate();
         repaint();
-        System.out.println("show car ads in adsPanel");
-        System.out.println(adsListPanel.getComponentCount());
+        //System.out.println("show car ads in adsPanel");
         return adsListPanel.getComponentCount();
     }
 
@@ -299,27 +298,30 @@ public class MainGUI extends JFrame{
         }
         revalidate();
         repaint();
-        System.out.println("show car in carsPanel");
-        System.out.println(carsListPanel.getComponentCount());
+        //System.out.println("show car in carsPanel");
         return carsListPanel.getComponentCount();
     }
-    void showBookings()
+    public int showBookings()
+    {
+        return showBookings(Methods.adsJSON, Methods.carsJSON);
+    }
+    public int showBookings(File adsFile, File carsFile)
     {
         //Ad in carAds, if renterID != 0, create element in bookingsPanel with data from carAd
-        List<CarAd> bookings = Methods.readAdsFromJSON();
+        List<CarAd> bookings = Methods.readAdsFromJSON(adsFile);
         bookingsListPanel.removeAll();
         bookingsListPanel.setLayout(new GridLayout(bookings.size()+1, 0, 10, 10));
         for(CarAd carAd : bookings)
         {
-            if (Methods.getCar(carAd.getCarRegnum()) != null)
+            if (Methods.getCar(carAd.getCarRegnum(), carsFile) != null)
             {
-                if(carAd.getRenterId() == Methods.userId || (Methods.getCar(carAd.getCarRegnum()).getUser() == Methods.userId && carAd.getRenterId() != 0)) //if car is rented or owned by user && exists
+                if(carAd.getRenterId() == Methods.userId || (Methods.getCar(carAd.getCarRegnum(), carsFile).getUser() == Methods.userId && carAd.getRenterId() != 0)) //if car is rented or owned by user && exists
                 {
                     // Create GUI
                     JPanel panel = new JPanel();
                     panel.setBorder(BorderFactory.createLineBorder(Color.black));
                     panel.setLayout(new GridLayout(2, 5, 10, 10));
-                    Car car = Methods.getCar(carAd.getCarRegnum());
+                    Car car = Methods.getCar(carAd.getCarRegnum(), carsFile);
                     panel.add(new JLabel(car.getMake() + " " + car.getModel() + " " + car.getModelYear()));
                     panel.add(new JLabel());
                     panel.add(new JLabel());
@@ -355,6 +357,7 @@ public class MainGUI extends JFrame{
         }
         revalidate();
         repaint();
-        System.out.println("show bookings in bookingsPanel");
+        //System.out.println("show bookings in bookingsPanel");
+        return bookingsListPanel.getComponentCount();
     }
 }

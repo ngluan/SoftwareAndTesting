@@ -9,4 +9,26 @@
   "seats" : 5,
   "doors" : 4,
   "user" : 1
+}, {
+  "make" : "Toyota",
+  "modelYear" : 1990,
+  "model" : "Corolla",
+  "kmDistance" : 200000,
+  "registrationnumber" : "WE12352",
+  "gearType" : "Manual",
+  "fuelType" : "Gas",
+  "seats" : 5,
+  "doors" : 4,
+  "user" : 2
+}, {
+  "make" : "Ford",
+  "modelYear" : 2000,
+  "model" : "Test",
+  "kmDistance" : 200000,
+  "registrationnumber" : "aw12312",
+  "gearType" : "Manual",
+  "fuelType" : "Gas",
+  "seats" : 5,
+  "doors" : 4,
+  "user" : 2
 } ]
