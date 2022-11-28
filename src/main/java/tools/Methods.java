@@ -109,13 +109,13 @@ public class Methods {
         return rentCarAd(id, adsJSON);
     }
 
-    public static boolean rentCarAd(int id, File file){
+    public static boolean rentCarAd(int adId, File file){
         boolean value = false;
         ArrayList<CarAd> carAds = readAdsFromJSON(file);
         //find ad with adId and add renterId
         for (CarAd ad:
                 carAds) {
-            if (id == ad.getAdId()){
+            if (adId == ad.getAdId()){
                 value = ad.rentCar(userId);
                 break;
             }
@@ -129,12 +129,12 @@ public class Methods {
         cancelBooking(id, adsJSON);
     }
 
-    public static void cancelBooking(int id, File file){
+    public static void cancelBooking(int adId, File file){
         ArrayList<CarAd> carAds = readAdsFromJSON(file);
         //find ad with adId and remove renterId
         for (CarAd ad:
                 carAds) {
-            if (id == ad.getAdId()){
+            if (adId == ad.getAdId()){
                 ad.cancelBooking();
                 break;
             }

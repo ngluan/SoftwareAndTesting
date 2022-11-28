@@ -49,14 +49,16 @@ public class Testing {
 
             @Test
             public void Booking_Can_Get_Cancelled_After_CarAd_Is_Rented() {
-                File carAdJSON = new File("cancel_booking.json");
-                ArrayList<CarAd> carAdList = new ArrayList<>();
+                File carAdJSON = new File("carAdTesting.json");
+                ArrayList<CarAd> emptyList = new ArrayList<>();
+                Methods.writeAdsToJSON(emptyList, carAdJSON);
                 User user = new User(12, "Arne", 52);
                 User user2 = new User(9, "Ronny", 25);
                 Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
-                CarAd carAd = new CarAd(nissanLeaf.getRegistrationnumber(), null, null, 0);
-                Methods.rentCarAd(user2.getId(), carAdJSON);
-                Methods.cancelBooking(user2.getId(), carAdJSON);
+                CarAd carAd = Methods.createCarAd(nissanLeaf.getRegistrationnumber(), null, null, carAdJSON);
+                Methods.login(user2.getId());
+                Methods.rentCarAd(carAd.getAdId(), carAdJSON);
+                Methods.cancelBooking(carAd.getAdId(), carAdJSON);
                 assertEquals(0, carAd.getRenterId());
             }
 
@@ -231,34 +233,6 @@ public class Testing {
 
     }
 
-    @Test
-    public void User_Login() {
-        int sessionId = 1;
-        Methods.login(sessionId);
-        assertEquals(sessionId, Methods.userId);
-    }
-
-    @Test
-    public void Get_Car_Returns_Car_With_Correct_Regnum() {
-        File carsTestingJSON = new File("carsTesting.json");
-        ArrayList<Car> cars = new ArrayList<>();
-        Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, 1);
-        Car toyotaCorolla = new Car("Toyota", 1990, "Corolla", 200000, "AB12345", "Manual", "Gas", 5, 4, 2);
-        Car miniMorris = new Car("Mini", 1969, "Morris", 200000, "CE14234", "Manual", "Gas", 4, 2, 2);
-        cars.add(nissanLeaf);
-        cars.add(toyotaCorolla);
-        cars.add(miniMorris);
-        Methods.writeCarsToJSON(cars, carsTestingJSON);
-        assertEquals(toyotaCorolla.getRegistrationnumber(), Methods.getCar(toyotaCorolla.getRegistrationnumber(), carsTestingJSON).getRegistrationnumber());
-    }
-    @Test
-    public void Get_Car_Returns_Null_If_Car_Doesnt_Exist() {
-        File carsTestingJSON = new File("carsTesting.json");
-        ArrayList<Car> cars = new ArrayList<>();
-        Methods.writeCarsToJSON(cars, carsTestingJSON);
-        assertNull(Methods.getCar("AB12345", carsTestingJSON));
-    }
-
     @Nested
     class GUI{
         @Test
@@ -291,7 +265,6 @@ public class Testing {
             carAds.add(ad1);
             carAds.add(ad2);
             carAds.add(ad3);
-            System.out.println(carAds);
             Methods.writeAdsToJSON(carAds, carAdTestingJSON);
             MainGUI mainGUI = new MainGUI("CarX");
             Methods.userId = 1;
@@ -308,5 +281,53 @@ public class Testing {
             Methods.deleteCar(car.getRegistrationnumber(), carsJSON);
             assertEquals(emptyList.toString(), Methods.readCarsFromJSON(carsJSON).toString());
         }
+        @Test
+        public void Correct_Amount_Of_Bookings_Are_Shown() {
+            File carsTestingJSON = new File("carsTesting.json");
+            File carAdTestingJSON = new File("carAdTesting.json");
+            ArrayList<Car> cars = new ArrayList<>();
+            Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, 1);
+            cars.add(nissanLeaf);
+            Methods.writeCarsToJSON(cars, carsTestingJSON);
+            ArrayList<CarAd> carAds = new ArrayList<>();
+            CarAd ad1 = new CarAd(nissanLeaf.getRegistrationnumber(), null, null, 0);
+            CarAd ad2 = new CarAd(nissanLeaf.getRegistrationnumber(), null, null, 2);
+            CarAd ad3 = new CarAd(nissanLeaf.getRegistrationnumber(), null, null, 2);
+            carAds.add(ad1);
+            carAds.add(ad2);
+            carAds.add(ad3);
+            Methods.writeAdsToJSON(carAds, carAdTestingJSON);
+            MainGUI mainGUI = new MainGUI("CarX");
+            Methods.userId = 2;
+            assertEquals(2, mainGUI.showBookings(carAdTestingJSON, carsTestingJSON));
+        }
+    }
+
+    @Test
+    public void User_Login_Changes_User_Id() {
+        int sessionId = 1;
+        Methods.login(sessionId);
+        assertEquals(sessionId, Methods.userId);
+    }
+
+    @Test
+    public void Get_Car_Returns_Car_With_Correct_Regnum() {
+        File carsTestingJSON = new File("carsTesting.json");
+        ArrayList<Car> cars = new ArrayList<>();
+        Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, 1);
+        Car toyotaCorolla = new Car("Toyota", 1990, "Corolla", 200000, "AB12345", "Manual", "Gas", 5, 4, 2);
+        Car miniMorris = new Car("Mini", 1969, "Morris", 200000, "CE14234", "Manual", "Gas", 4, 2, 2);
+        cars.add(nissanLeaf);
+        cars.add(toyotaCorolla);
+        cars.add(miniMorris);
+        Methods.writeCarsToJSON(cars, carsTestingJSON);
+        assertEquals(toyotaCorolla.getRegistrationnumber(), Methods.getCar(toyotaCorolla.getRegistrationnumber(), carsTestingJSON).getRegistrationnumber());
+    }
+    @Test
+    public void Get_Car_Returns_Null_If_Car_Doesnt_Exist() {
+        File carsTestingJSON = new File("carsTesting.json");
+        ArrayList<Car> cars = new ArrayList<>();
+        Methods.writeCarsToJSON(cars, carsTestingJSON);
+        assertNull(Methods.getCar("AB12345", carsTestingJSON));
     }
 }
