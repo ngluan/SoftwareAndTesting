@@ -8,6 +8,7 @@ import tools.Methods;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -176,6 +177,56 @@ public class Testing {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Nested
+    class CarAds{
+        @Test
+        public void User_Can_Create_CarAd() {
+            File carAdJSON = new File("carAdTesting.json");
+            User user = new User(0, "Arne", 52);
+            ArrayList<Car> cars = new ArrayList<>();
+            ArrayList<CarAd> expectedList = new ArrayList<>();
+            Methods.writeAdsToJSON(expectedList, carAdJSON); // Overwrite JSON test file
+            Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
+            cars.add(nissanLeaf);
+            CarAd carad = Methods.createCarAd(nissanLeaf.getRegistrationnumber(), null, null, carAdJSON);
+            expectedList.add(carad);
+            assertEquals(expectedList.toString(), Methods.readAdsFromJSON(carAdJSON).toString());
+        }
+
+        @Test
+        public void User_Can_Set_StartDate_On_CarAd() {
+            File carAdJSON = new File("carAdTesting.json");
+            User user = new User(0, "Arne", 52);
+            ArrayList<Car> cars = new ArrayList<>();
+            ArrayList<CarAd> expectedList = new ArrayList<>();
+            Methods.writeAdsToJSON(expectedList, carAdJSON); // Overwrite JSON test file
+            Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
+            cars.add(nissanLeaf);
+            // Date constructor is deprecated. Date parameters calculate from the year 1900-00-00.
+            Date date = new Date(122, 11, 24);
+            CarAd carad = Methods.createCarAd(nissanLeaf.getRegistrationnumber(), date, null, carAdJSON);
+            expectedList.add(carad);
+            assertEquals(date, carad.getStartDate());
+        }
+
+        @Test
+        public void User_Can_Set_EndDate_On_CarAd() {
+            File carAdJSON = new File("carAdTesting.json");
+            User user = new User(0, "Arne", 52);
+            ArrayList<Car> cars = new ArrayList<>();
+            ArrayList<CarAd> expectedList = new ArrayList<>();
+            Methods.writeAdsToJSON(expectedList, carAdJSON); // Overwrite JSON test file
+            Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
+            cars.add(nissanLeaf);
+            // Date constructor is deprecated. Date parameters calculate from the year 1900-00-00.
+            Date date = new Date(122, 11, 26);
+            CarAd carad = Methods.createCarAd(nissanLeaf.getRegistrationnumber(), null , date, carAdJSON);
+            expectedList.add(carad);
+            assertEquals(date, carad.getEndDate());
+        }
+
     }
 
     @Test
