@@ -304,13 +304,13 @@ public class Testing {
     }
 
     @Test
-    public void User_Login_Changes_User_Id_To_Users_Id() {
+    public void User_Login_Changes_UserId_To_Users_Id() {
         int sessionId = 1;
         Methods.login(sessionId);
         assertEquals(sessionId, Methods.userId);
     }
     @Test
-    public void Log_Out_Changes_User_Id_To_Zero() {
+    public void Log_Out_Changes_UserId_To_Zero() {
         Methods.login(0);
         assertEquals(0, Methods.userId);
     }
