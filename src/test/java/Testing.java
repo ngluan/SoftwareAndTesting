@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class Testing {
 
         @Nested
-        class CarRenting {
+        class Car_Renting {
 
             @Test
             public void Car_Can_Not_Get_Rented_If_Unavailable() {
@@ -64,7 +64,7 @@ public class Testing {
 
 
             @Test
-            public void Car_Gets_Rented_If_Avalible() {
+            public void Car_Gets_Rented_If_Available() {
                 User user = new User(12, "Arne", 52);
                 Car nissanLeaf = new Car("Nissan", 2018, "Leaf", 200000, "RJ3292", "Manual", "Gas", 5, 4, user.getId());
                 CarAd carAd = new CarAd(nissanLeaf.getRegistrationnumber(), null, null, 0);
@@ -174,7 +174,7 @@ public class Testing {
     }
 
     @Nested
-    class CarAds{
+    class Car_Ads{
         @Test
         public void User_Can_Create_CarAd() {
             File carAdJSON = new File("carAdTesting.json");
@@ -224,7 +224,7 @@ public class Testing {
     }
 
     @Nested
-    class GUI{
+    class GUI_Testing{
         @Test
         public void Correct_Amount_Of_Cars_Are_Shown() {
             File carsTestingJSON = new File("carsTesting.json");
@@ -284,7 +284,7 @@ public class Testing {
     }
 
     @Nested
-    class UserTesting
+    class User_Testing
     {
         @Test
         public void User_Login_Changes_UserId_To_Users_Id() {
@@ -300,7 +300,7 @@ public class Testing {
     }
 
     @Nested
-    class CarTesting
+    class Car_Testing
     {
         @Test
         public void Car_Can_Get_Registered() {
@@ -335,7 +335,7 @@ public class Testing {
         }
 
         @Test
-        public void Car_Can_Get_deleted() {
+        public void Car_Can_Get_Deleted() {
             File carsJSON = new File("carsTesting.json");
             ArrayList<Car> emptyList = new ArrayList<>();
             Methods.writeCarsToJSON(emptyList, carsJSON); // Overwrite JSON test file
